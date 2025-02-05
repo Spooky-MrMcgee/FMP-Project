@@ -1,5 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7289118436822238790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e32e72b6a3f58a24c9033e2b9275eea0, type: 3}
+  m_Name: ScreenSpaceShadows
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  m_Shader: {fileID: 4800000, guid: 0f854b35a0cf61a429bd5dcfea30eddd, type: 3}
 --- !u!114 &-2699247432540779867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43,7 +57,10 @@ MonoBehaviour:
   m_RendererFeatures:
   - {fileID: -2699247432540779867}
   - {fileID: 3075538553941217703}
-  m_RendererFeatureMap: a58a85e6c2588adaa751af180582ae2a
+  - {fileID: 5073366946854078141}
+  - {fileID: -7289118436822238790}
+  - {fileID: 709077432062046571}
+  m_RendererFeatureMap: a58a85e6c2588adaa751af180582ae2abd0672ba5b386846bab975af66d9d79a6bf14de82a26d709
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -82,6 +99,21 @@ MonoBehaviour:
   m_CopyDepthMode: 0
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 1
+--- !u!114 &709077432062046571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d275529e7f5bb7448800b261dd260a4, type: 3}
+  m_Name: FullscreenGrainRenderFeature
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    material: {fileID: 2100000, guid: 4b9c93173047af141afbed06d737db0a, type: 2}
 --- !u!114 &3075538553941217703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,3 +130,19 @@ MonoBehaviour:
   settings:
     renderPassEvent: 550
     screenHeight: 250
+--- !u!114 &5073366946854078141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7576c75d146f7e4087476d39dddd2c8, type: 3}
+  m_Name: LightingRenderFeature
+  m_EditorClassIdentifier: 
+  m_Active: 0
+  settings:
+    grainMaterial: {fileID: 2100000, guid: e4152ccc97177c34eaecbfc9db19a35f, type: 2}
+    renderPassEvent: 500
