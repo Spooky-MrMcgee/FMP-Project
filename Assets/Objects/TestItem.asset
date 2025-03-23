@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e085f8f763809be479484d0ba2a312be, type: 3}
+  m_Name: TestItem
+  m_EditorClassIdentifier: 
+  itemName: Destroyer
+  itemDesc: Test item 3
+  quantity: 0
+  interactable: {fileID: 919132149155446097, guid: f6345559425f61042b38f8eae1b6fe47, type: 3}

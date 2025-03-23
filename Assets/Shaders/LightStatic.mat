@@ -28,7 +28,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseTexture:
-        m_Texture: {fileID: 2800000, guid: becf52ffb59f83c48960959b5fa399cc, type: 3}
+        m_Texture: {fileID: 2800000, guid: 36899e5d2acaf5443ae05ec82ce8b30e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -41,8 +41,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _GrainIntensity: 0.022
-    - _GrainScale: 500
+    - _GrainIntensity: 1
+    - _GrainScale: 1000
     - _GrainSpeed: 1
     - _NoiseScale: 10
     - _NoiseSpeed: 1

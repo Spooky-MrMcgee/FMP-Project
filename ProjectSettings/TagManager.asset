@@ -3,18 +3,23 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Item
+  - Enemy
+  - EnemyPathway
+  - Room
+  - RoomExit
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Post-Process
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Walls
+  - Enemy
+  - Objects
   - 
   - 
   - 

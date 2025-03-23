@@ -60,7 +60,6 @@ Shader "Hidden/Pixelize"
         Pass
         {
             Name "Pixelation"
-
             HLSLPROGRAM
             half4 frag(Varyings IN) : SV_TARGET
             {

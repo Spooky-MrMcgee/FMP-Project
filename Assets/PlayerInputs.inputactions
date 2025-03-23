@@ -2,7 +2,7 @@
     "name": "PlayerInputs",
     "maps": [
         {
-            "name": "Movement",
+            "name": "Player",
             "id": "df44065f-1e89-4ead-9737-2c047ed0c620",
             "actions": [
                 {
@@ -13,6 +13,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "PlayerAim",
+                    "type": "Button",
+                    "id": "2c856326-7ce7-4fdc-b91b-1cf189c4bb02",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PlayerAttack",
+                    "type": "Button",
+                    "id": "b34d5770-cbd2-4751-a5f0-34e6252c1723",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PlayerInteract",
+                    "type": "Button",
+                    "id": "b6578fdf-bf38-4424-a79e-0ec72dbacc6c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -33,7 +60,7 @@
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "PlayerKeyboard",
                     "action": "PlayerMove",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -44,7 +71,7 @@
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "PlayerKeyboard",
                     "action": "PlayerMove",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -55,7 +82,7 @@
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "PlayerKeyboard",
                     "action": "PlayerMove",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -66,10 +93,71 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "PlayerKeyboard",
                     "action": "PlayerMove",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "4ef1ed5b-1965-4f45-b8af-40a7c67e41da",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PlayerAim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2eeea1f5-2128-4c9c-8a2f-05f143475d2e",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PlayerAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6c3ee59f-6f21-490a-99c2-0f308c30df37",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PlayerKeyboard",
+                    "action": "PlayerInteract",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "UI",
+            "id": "12c5fe59-2057-415d-aa25-e6b3aeca8113",
+            "actions": [
+                {
+                    "name": "Scroll",
+                    "type": "Value",
+                    "id": "e263b51b-3c93-47dd-afb0-0ca9dd3b5016",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "6a16247d-ac25-41e1-83d0-6d757c5739cf",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PlayerKeyboard",
+                    "action": "Scroll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
@@ -81,6 +169,11 @@
             "devices": [
                 {
                     "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
                     "isOptional": false,
                     "isOR": false
                 }

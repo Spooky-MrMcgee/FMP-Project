@@ -80,6 +80,7 @@ Shader "Custom/LitDynamicStaticGrain"
                 half4 baseColor = tex2D(_BaseTexture, IN.uv);
 
                 // Calculate lighting
+                //Light additionalLights = GetAdditionalLight(IN.shadowCoord);
                 Light mainLight = GetMainLight(IN.shadowCoord); // Apply shadows
                 float3 lightDir = normalize(mainLight.direction);
                 float3 normalWS = normalize(IN.normalWS);
