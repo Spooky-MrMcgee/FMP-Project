@@ -82,7 +82,6 @@ public class UIHandler : MonoBehaviour
         {
             if (lineCount < currentText.Count)
             {
-                Debug.Log(currentText.Count + "" + lineCount);
                 UIText.text = currentText[lineCount];
                 StartCoroutine(TextDelay());
             }

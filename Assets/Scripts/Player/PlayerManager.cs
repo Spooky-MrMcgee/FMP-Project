@@ -4,15 +4,21 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour, IDamageable
 {
     public static PlayerManager Instance;
+    public GameObject playerMesh;
     public Camera currentCamera { get; private set; }
     public float health { get; private set; }
     public float speed { get; private set; }
     public bool playerInteract { get; private set; }
+    public bool playerPuzzle;    
+    
     public RoomDetails currentRoom { get; private set; }
+
+    public Animator animator;
 
     [SerializeField] List<InteractableItem> startingItems;
     public List<InventoryItems> interactableItems { get; private set; } = new List<InventoryItems>();
@@ -33,6 +39,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
     public enum PlayerStates
     {
+        Idle,
         Walking,
         Sprinting,
         Aiming,
@@ -78,15 +85,65 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        Debug.Log(currentRoom);
-        currentCamera.transform.position = currentRoom.cameraPoint.transform.position;
-        currentCamera.transform.rotation = currentRoom.cameraPoint.transform.rotation;
+        if (!playerPuzzle)
+        {
+            currentCamera.transform.position = currentRoom.cameraPoint.transform.position;
+            currentCamera.transform.rotation = currentRoom.cameraPoint.transform.rotation;
+            currentCamera.orthographicSize = currentRoom.orthographicSize;
+            playerMesh.SetActive(true);
+        }
+        else
+        {
+            if (PlayerInteraction.Instance.itemBeingInteracted.GetComponent<PuzzleInteractable>())
+            {
+                currentCamera.transform.position = PlayerInteraction.Instance.itemBeingInteracted.GetComponent<PuzzleInteractable>().cameraPerspective.transform.position;
+                currentCamera.transform.rotation = PlayerInteraction.Instance.itemBeingInteracted.GetComponent<PuzzleInteractable>().cameraPerspective.transform.rotation;
+                currentCamera.orthographicSize = PlayerInteraction.Instance.itemBeingInteracted.GetComponent<PuzzleInteractable>().cameraOrthographic;
+            }
+            playerMesh.SetActive(false);
+        }
         if (Input.GetKeyDown(KeyCode.E))
         {
             PlayerPressedInventoryButton?.Invoke();
         }
+
+        switch (playerState)
+        {
+            case PlayerStates.Idle:
+                HandleAnimationStates("isIdle");
+                break;
+
+            case PlayerStates.Walking:
+                HandleAnimationStates("isWalking");
+                break;
+
+            case PlayerStates.Aiming:
+                HandleAnimationStates("isAiming");
+                break;
+
+            case PlayerStates.Sprinting:
+                HandleAnimationStates("isSprinting");
+                break;
+        }
     }
     
+    private void HandleAnimationStates(string animationTrigger)
+    {
+        Debug.Log(animationTrigger);
+        for (int i = 0; i < animator.parameterCount; i++)
+        {
+            AnimatorControllerParameter animController;
+            animController = animator.GetParameter(i);
+            if (animController.name.ToString() == animationTrigger)
+            {
+                Debug.Log(animController.name.ToString() + ", " + animationTrigger);
+                animator.SetBool(animationTrigger, true);
+            }
+            else
+                animator.SetBool(animController.name, false);
+        }
+    }
+
     public void UpdateCamera(Camera camera)
     {
         Camera[] allCameras = Camera.allCameras;

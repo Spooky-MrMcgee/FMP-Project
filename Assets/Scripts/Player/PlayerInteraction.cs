@@ -8,6 +8,7 @@ public class PlayerInteraction : MonoBehaviour
     public static PlayerInteraction Instance;
     LayerMask mask;
     public GameObject itemBeingInteracted;
+    public InteractableItem currentItem;
     public bool currentlyInteracting;
     public bool doneInteracting;
     private void Awake()
@@ -49,6 +50,8 @@ public class PlayerInteraction : MonoBehaviour
             itemBeingInteracted.SetActive(false);
         if (itemBeingInteracted.GetComponent<InteractableScript>().collectable)
             InteractablePickedUp(itemBeingInteracted.GetComponent<InteractableScript>().interactable);
+        if (itemBeingInteracted.GetComponent<PuzzleInteractable>())
+            PlayerManager.Instance.playerPuzzle = false;
         itemBeingInteracted.GetComponent<InteractableScript>().interacted = false;
     }
 

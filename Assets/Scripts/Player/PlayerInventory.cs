@@ -114,7 +114,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void ShiftDown()
     {
-        if (currentItemIndex < (PlayerManager.Instance.interactableItems.Count - 1))
+        if (currentItemIndex < (PlayerManager.Instance.interactableItems.Count - 1) && PlayerManager.Instance.interactableItems.Count >= 3)
             currentItemIndex++;
         SortInventory();
     }

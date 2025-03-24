@@ -11,7 +11,7 @@ public class EnemyMonstro : Enemy
     {
         // Wander state is for moving around the room, will set distinct pathways for each room for the enemies to navigate
         nMA.SetDestination(currentWaypoint.transform.position);
-        if (Vector3.Distance(transform.position, currentWaypoint.transform.position) < 1f)
+        if (Vector3.Distance(transform.position, currentWaypoint.transform.position) < 2f)
         {
             GetNextWaypoint();
         }

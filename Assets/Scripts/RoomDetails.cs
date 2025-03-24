@@ -7,4 +7,5 @@ public class RoomDetails : MonoBehaviour
     public GameObject roomCollider, spawnPoint, cameraPoint, connectingSpawn;
     public Object[] collectibles;
     public Enemy[] enemies;
+    public float orthographicSize;
 }

@@ -6,12 +6,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
-{
-    [SerializeField] Animator playerAnimator;
-    
+{   
     PlayerInputs PlayerActions;
     [SerializeField] CharacterController characterController;
-    [SerializeField] float speed = 6f, smoothTurnTime = 0.1f;
+    [SerializeField] float speed = 6f, smoothTurnTime = 0.1f, gravity = 9.81f;
     [SerializeField] public GameObject mousePos, currentCamera;
     Vector3 forward, right, dir;
     float playerHorizontalInput, playerVerticalInput, turnSmoothVelocity;
@@ -19,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 gizmoHit;
     bool canTraverseRooms = true;
     public static PlayerMovement PlayerMove;
+    public bool isMoving;
 
     private void Awake()
     {
@@ -45,6 +44,8 @@ public class PlayerMovement : MonoBehaviour
             if (!PlayerCombat.Instance.currentlyAiming)
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
             characterController.Move(dir * (speed) * Time.deltaTime);
+            
+            characterController.Move(new Vector3(0, -gravity, 0) * Time.deltaTime);
         }
     }
 
@@ -56,6 +57,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move(Vector2 direction)
     {
+        if (direction.magnitude != 0 && !PlayerCombat.Instance.currentlyAiming)
+            PlayerManager.Instance.playerState = PlayerManager.PlayerStates.Walking;
+        else if (direction.magnitude == 0 && !PlayerCombat.Instance.currentlyAiming)
+            PlayerManager.Instance.playerState = PlayerManager.PlayerStates.Idle;
+
         playerHorizontalInput = direction.y;
         playerVerticalInput = direction.x;
         forward = currentCamera.transform.forward;
@@ -64,10 +70,6 @@ public class PlayerMovement : MonoBehaviour
         right.y = 0f;
         forward = forward.normalized;
         right = right.normalized;
-
-        //Animator
-        playerAnimator.SetBool("isWalking", true);
-
     }
 
 

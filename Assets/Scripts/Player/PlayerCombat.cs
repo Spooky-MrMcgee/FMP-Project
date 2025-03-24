@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.HID;
 
 public class PlayerCombat : MonoBehaviour
 {
-    [SerializeField] Animator playerAnimator;
     [SerializeField] GameObject firePoint;
     [SerializeField] TrailRenderer bulletTrail;
     [SerializeField] float damage;
@@ -51,9 +51,6 @@ public class PlayerCombat : MonoBehaviour
         Ray ray = PlayerMovement.PlayerMove.currentCamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        //Animator
-        playerAnimator.SetBool("isAiming", true);
-
         if (Physics.Raycast(ray, out hit, 1000, playerMask))
         {
             Vector3 mousePosition = Input.mousePosition;
@@ -74,7 +71,8 @@ public class PlayerCombat : MonoBehaviour
                 focusTime = 3f;
 
             enemyToAttack = hit.transform.gameObject;
-            targetToFireAt = hit.transform.Find("Target").gameObject;
+            Debug.Log(hit.transform);
+            RecursiveTargetCheck(hit.transform);
             AimingAtEnemy?.Invoke(targetToFireAt);
         }
         else
@@ -85,14 +83,37 @@ public class PlayerCombat : MonoBehaviour
         boxHit = Physics.BoxCastAll(target.normalized, new Vector3(5, 5, 5), transform.forward, transform.rotation, 1000, enemyMask);
     }
 
+    void RecursiveTargetCheck(Transform targetFire)
+    {
+        foreach (Transform t in targetFire)
+        {
+            //targetToFireAt = t.transform.Find("Target").gameObject;
+            if (t.transform.Find("Target") == null)
+            {
+                Debug.Log("AAA");
+                RecursiveTargetCheck(t);
+            }
+            else
+            {
+                targetToFireAt = t.transform.Find("Target").gameObject;
+                break;
+            }
+        }  
+    }
+
     private void Aim(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
         {
+            PlayerManager.Instance.playerState = PlayerManager.PlayerStates.Aiming;
             currentlyAiming = true;
         }
         if (ctx.canceled)
         {
+            if (!PlayerMovement.PlayerMove.isMoving)
+                PlayerManager.Instance.playerState = PlayerManager.PlayerStates.Walking;
+            else
+                PlayerManager.Instance.playerState = PlayerManager.PlayerStates.Idle;
             focusTime = 3f;
             currentlyAiming = false;
         }
