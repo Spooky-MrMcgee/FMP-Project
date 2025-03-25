@@ -479,6 +479,7 @@ MonoBehaviour:
   enemyHealth: 50
   enemyDamage: 20
   enemySpeed: 10
+  chaseSpeed: 0
   attackRange: 7
   waypoints: []
   staggerLimit: 25
@@ -487,6 +488,7 @@ MonoBehaviour:
   waypointIndex: 0
   animator: {fileID: 3733249980241381370}
   previousState: 0
+  isDead: 0
   enemyState: 0
   x: 0
 --- !u!195 &7494758791424249389

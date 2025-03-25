@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerMovement : MonoBehaviour
 {   
@@ -18,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     bool canTraverseRooms = true;
     public static PlayerMovement PlayerMove;
     public bool isMoving;
+    public bool nextToDoor;
 
     private void Awake()
     {
@@ -83,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (other.transform.tag == "RoomExit" && canTraverseRooms)
         {
+            nextToDoor = true;
             if (PlayerManager.Instance.playerInteract)
             {
                 Debug.Log("Player is interacting");
@@ -92,6 +95,8 @@ public class PlayerMovement : MonoBehaviour
                 characterController.enabled = true;
                 StartCoroutine(RoomCooldown());
             }
+            if (!canTraverseRooms)
+                nextToDoor = false;
         }
     }
 
@@ -103,6 +108,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (other.transform.tag == "RoomExit")
         {
+            nextToDoor = true;
             if (PlayerManager.Instance.playerInteract && canTraverseRooms)
             {
                 Debug.Log("Player is interacting");
@@ -112,6 +118,8 @@ public class PlayerMovement : MonoBehaviour
                 characterController.enabled = true;
                 StartCoroutine(RoomCooldown());
             }
+            if (!canTraverseRooms)
+                nextToDoor = false;
         }
     }
 
@@ -122,15 +130,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (other.transform.tag == "RoomExit")
         {
-            if (PlayerManager.Instance.playerInteract && canTraverseRooms)
-            {
-                Debug.Log("Player is interacting");
-                characterController.enabled = false;
-                Vector3 newPos = other.transform.GetComponent<RoomDoor>().connectingSpawn.transform.position;
-                transform.position = new Vector3(newPos.x, newPos.y + 6, newPos.z);
-                characterController.enabled = true;
-                StartCoroutine(RoomCooldown());
-            }
+            nextToDoor = false;
         }
     }
 

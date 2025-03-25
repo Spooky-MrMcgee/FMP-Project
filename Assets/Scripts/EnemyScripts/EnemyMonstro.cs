@@ -10,6 +10,8 @@ public class EnemyMonstro : Enemy
     public override void Wander()
     {
         // Wander state is for moving around the room, will set distinct pathways for each room for the enemies to navigate
+        nMA.isStopped = false;
+        nMA.speed = enemySpeed;
         nMA.SetDestination(currentWaypoint.transform.position);
         if (Vector3.Distance(transform.position, currentWaypoint.transform.position) < 2f)
         {
@@ -52,6 +54,12 @@ public class EnemyMonstro : Enemy
     public override void Attack()
     {
         nMA.isStopped = true;
+        transform.LookAt(new Vector3(player.transform.position.x, this.transform.position.y, player.transform.position.z));
+    }
+
+    public void HurtPlayer()
+    {
+        player.GetComponent<IDamageable>().TakeDamage(enemyDamage);
     }
 
     public override void Idle()
@@ -61,8 +69,10 @@ public class EnemyMonstro : Enemy
 
     public override void Chase()
     {
+        nMA.isStopped = false;
         // Chase occurs upon the player attacking an enemy, causing them to lock into the players position and charge
         Debug.Log("Currently chasing");
+        nMA.speed = chaseSpeed;
         nMA.SetDestination(GameObject.Find("Player").transform.position);
 
     }
@@ -79,10 +89,5 @@ public class EnemyMonstro : Enemy
         nMA.isStopped = false;
         enemyState = EnemyStates.Chase;
 
-    }
-    public void AttackPlayer()
-    {
-        player.GetComponent<IDamageable>().TakeDamage(enemyDamage);
-        // At the end of the attack animation an animation event will call AttackPlayer to deal damage to the player.
     }
 }

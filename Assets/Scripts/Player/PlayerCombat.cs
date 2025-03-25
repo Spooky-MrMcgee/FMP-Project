@@ -62,7 +62,7 @@ public class PlayerCombat : MonoBehaviour
         Vector3 target = PlayerMovement.PlayerMove.currentCamera.GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition);
         Ray targetRay = PlayerMovement.PlayerMove.currentCamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out hit, 1000, enemyMask))
+        if (Physics.Raycast(ray, out hit, 1000, enemyMask) && !hit.transform.gameObject.GetComponent<Enemy>().isDead)
         {
             aimingAtEnemy = true;
             if (enemyToAttack == hit.transform.gameObject)

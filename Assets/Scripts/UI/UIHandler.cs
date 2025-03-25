@@ -14,6 +14,7 @@ public class UIHandler : MonoBehaviour
     [SerializeField] Image targetReticle;
     [SerializeField] TextMeshProUGUI UIText;
     [SerializeField] Canvas UICanvas;
+    [SerializeField] Image door;
     GameObject currentTarget;
     bool lockedOn;
     bool textFinished;
@@ -54,6 +55,11 @@ public class UIHandler : MonoBehaviour
         {
             DisplayText(currentText);
         }
+
+        if (PlayerMovement.PlayerMove.nextToDoor)
+            door.enabled = true;
+        else
+            door.enabled = false;
 
     }
 

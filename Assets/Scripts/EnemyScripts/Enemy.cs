@@ -5,10 +5,11 @@ using Unity.VisualScripting;
 using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem.Processors;
 
 public abstract class Enemy : MonoBehaviour, IDamageable
 {
-    [SerializeField] protected float enemyHealth, enemyDamage, enemySpeed, attackRange;
+    [SerializeField] protected float enemyHealth, enemyDamage, enemySpeed, chaseSpeed, attackRange;
     [SerializeField] protected List<GameObject> waypoints = new List<GameObject>();
     [SerializeField] protected float staggerLimit;
     protected NavMeshAgent nMA;
@@ -20,6 +21,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     float totalDamageTakenSinceStagger;
     [SerializeField] EnemyStates previousState;
     bool stateChanged = false;
+    public bool isDead = false;
 
     private void Awake()
     {
@@ -58,44 +60,51 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-        switch (enemyState)
-        {
-            case EnemyStates.Idle:
-                HandleAnimations("isIdle");
-                Idle();
-                break;
+        if (!isDead)
+        { 
+            switch (enemyState)
+            {
+                case EnemyStates.Idle:
+                    HandleAnimations("isIdle");
+                    Idle();
+                    break;
 
-            case EnemyStates.Wandering:
-                HandleAnimations("isWandering");
-                Wander();
-                break;
+                case EnemyStates.Wandering:
+                    HandleAnimations("isWandering");
+                    Wander();
+                    break;
 
-            case EnemyStates.Chase:
-                HandleAnimations("isChasing");
-                Chase();
-                break;
+                case EnemyStates.Chase:
+                    HandleAnimations("isChasing");
+                    Chase();
+                    break;
 
-            case EnemyStates.Attacking:
-                HandleAnimations("isAttacking");
-                Attack();
-                break;
+                case EnemyStates.Attacking:
+                    HandleAnimations("isAttacking");
+                    Attack();
+                    break;
 
-            case EnemyStates.Staggered:
-                HandleAnimations("isStaggered");
-                Stagger();
-                break;
+                case EnemyStates.Staggered:
+                    HandleAnimations("isStaggered");
+                    Stagger();
+                    break;
 
-            case EnemyStates.Dead:
-                HandleAnimations("isDead");
-                Die();
-                break;
+                case EnemyStates.Dead:
+                    HandleAnimations("isDead");
+                    Die();
+                    break;
+            }
+
+
+            if (Vector3.Distance(transform.position, player.transform.position) <= attackRange)
+                enemyState = EnemyStates.Attacking;
+            else if (Vector3.Distance(transform.position, player.transform.position) >= attackRange && enemyState == EnemyStates.Attacking)
+                enemyState = EnemyStates.Chase;
         }
-
-
-        if (Vector3.Distance(transform.position, player.transform.position) <= attackRange)
-            enemyState = EnemyStates.Attacking;
-        else if (Vector3.Distance(transform.position, player.transform.position) >= attackRange && enemyState == EnemyStates.Attacking)
-            enemyState = EnemyStates.Chase;
+        else
+        {
+            enemyState = EnemyStates.Dead;
+        }
     }
 
     public void HandleAnimations(string animationTrigger)
@@ -141,6 +150,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
     public void Die()
     {
-        gameObject.SetActive(false);
+        isDead = true;
+        nMA.isStopped = true;
     }
 }

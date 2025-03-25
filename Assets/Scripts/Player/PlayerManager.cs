@@ -12,6 +12,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
     public GameObject playerMesh;
     public Camera currentCamera { get; private set; }
     public float health { get; private set; }
+    [SerializeField] float maxPlayerHealth;
     public float speed { get; private set; }
     public bool playerInteract { get; private set; }
     public bool playerPuzzle;    
@@ -176,6 +177,13 @@ public class PlayerManager : MonoBehaviour, IDamageable
     public void TakeDamage(float damageAmount)
     {
         health -= damageAmount;
+        if (health >= (maxPlayerHealth / 1.5))
+            playerHealthState = PlayerHealthStates.Wounded;
+        else if (health >= maxPlayerHealth / 3)
+            playerHealthState = PlayerHealthStates.Critical;
+        else
+            playerHealthState = PlayerHealthStates.Healthy;
+        HandleAnimationStates("isDamaged");
     }
 
     public void InteractCheck(InputAction.CallbackContext ctx)
