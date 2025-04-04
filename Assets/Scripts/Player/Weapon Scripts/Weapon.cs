@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour 
 {
+    [Header("Weapon Stats")]
     public int maxAmmoCount;
     public int currentAmmo;
     public bool needsAmmo;
@@ -15,6 +16,7 @@ public class Weapon : MonoBehaviour
 
     private void Start()
     {
+        // Assigns all of the weapon details based on the scriptable object blueprint.
         maxAmmoCount = weaponBlueprint.maxAmmoCount;
         currentAmmo = weaponBlueprint.currentAmmo;
         needsAmmo = weaponBlueprint.needsAmmo;
@@ -36,8 +38,8 @@ public class Weapon : MonoBehaviour
 
     public int Reload(int totalAmmo)
     {
+        // Reloads based on current amount of ammo.
         ammoReserves = totalAmmo;
-        Debug.Log("Current ammo is" + ammoReserves);
         if (currentAmmo == maxAmmoCount)
             return ammoReserves;
 
@@ -45,22 +47,19 @@ public class Weapon : MonoBehaviour
         {
             if (ammoReserves < (maxAmmoCount - currentAmmo))
             {
-                currentAmmo =+ ammoReserves;
-                Debug.Log("AAA");
+                currentAmmo =+ ammoReserves;;
                 ammoReserves = 0;
             }
 
             if (ammoReserves >= maxAmmoCount)
             {
                 ammoReserves -= (maxAmmoCount - currentAmmo);
-                Debug.Log("BBB");
                 currentAmmo = maxAmmoCount;
             }
 
             if (ammoReserves < 0)
                 ammoReserves = 0;
         }
-        Debug.Log("Ammo reserves are now" + ammoReserves);
         return ammoReserves;
     }
 }

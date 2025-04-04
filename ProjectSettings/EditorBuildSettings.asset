@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: bfd15a1c6e3fcc848863848f4672e2a0
   - enabled: 1
-    path: Assets/Scenes/LouTesting.unity
+    path: Assets/Scenes/TheMotherLevel.unity
     guid: 8e4aa824b74b677469d73937ef280a88
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

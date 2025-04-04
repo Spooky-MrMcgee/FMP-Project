@@ -6,15 +6,16 @@ using UnityEngine;
 public class PlayerInteraction : MonoBehaviour
 {
     public static PlayerInteraction Instance;
-    LayerMask mask;
-    public GameObject itemBeingInteracted;
-    public InteractableItem currentItem;
+    [Header("Interaction Checks")]
+    public GameObject itemBeingInteracted = null;
     public bool currentlyInteracting;
+    public InteractableItem currentItem;
     public bool doneInteracting;
+    public InteractableScript nearestInteractable;
+
     private void Awake()
     {
         Instance = this;
-        mask = (2);
     }
 
     private void Start()
@@ -39,32 +40,46 @@ public class PlayerInteraction : MonoBehaviour
 
     public void TriggerTextInteractable(List<string> textInteract)
     {
-        Debug.Log("I'm being called from here!");
         TextInteractable?.Invoke(textInteract);
     }
 
     void DoneInteracting()
     {
+        // Removes all interaction data after an interaction is finished.
         currentlyInteracting = false;
-        if (itemBeingInteracted.GetComponent<InteractableScript>().canDespawn)
+        InteractableScript interactable = itemBeingInteracted.GetComponent<InteractableScript>();
+        if (interactable.canDespawn)
             itemBeingInteracted.SetActive(false);
-        if (itemBeingInteracted.GetComponent<InteractableScript>().collectable)
+        if (interactable.collectable)
             InteractablePickedUp(itemBeingInteracted.GetComponent<InteractableScript>().interactable);
-        if (itemBeingInteracted.GetComponent<PuzzleInteractable>())
+
+        interactable.interacted = false;
+
+        if (interactable is PuzzleInteractable)
+        {
+            PuzzleInteractable puzzleInteractable = itemBeingInteracted.GetComponent<PuzzleInteractable>();
             PlayerManager.Instance.playerPuzzle = false;
-        itemBeingInteracted.GetComponent<InteractableScript>().interacted = false;
+            if (puzzleInteractable.fpTransition == null)
+                return;
+            // If the puzzle then moves to a FirstPerson transition it then handles that here.
+            puzzleInteractable.fpTransition.Interact();
+        }
     }
 
+    // All of the following scripts here handle the player's interactions based on Triggers that overlap when the player attempts to use the Interact button.
+    #region Trigger Interaction Handling
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<InteractableScript>())
         {   
             InteractableNearby(other.transform.position);
+            nearestInteractable = other.gameObject.GetComponent<InteractableScript>();
             InteractableScript interactableObject = other.GetComponent<InteractableScript>();
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 if (!currentlyInteracting)
                 {
+                    PlayerManager.Instance.playerState = PlayerManager.PlayerStates.Idle;
                     itemBeingInteracted = other.gameObject;
                     currentlyInteracting = true;
                 }
@@ -87,6 +102,7 @@ public class PlayerInteraction : MonoBehaviour
             {
                 if (!currentlyInteracting)
                 {
+                    PlayerManager.Instance.playerState = PlayerManager.PlayerStates.Idle;
                     itemBeingInteracted = other.gameObject;
                     currentlyInteracting = true;
                 }
@@ -118,4 +134,5 @@ public class PlayerInteraction : MonoBehaviour
             }
         }
     }
+    #endregion
 }

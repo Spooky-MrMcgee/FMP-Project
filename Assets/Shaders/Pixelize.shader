@@ -36,10 +36,6 @@ Shader "Hidden/Pixelize"
         float4 _MainTex_TexelSize;
         float4 _MainTex_ST;
 
-        //SAMPLER(sampler_MainTex);
-        //Texture2D _MainTex;
-        //SamplerState sampler_MainTex;
-
         SamplerState sampler_point_clamp;
         
         uniform float2 _BlockCount;
@@ -67,7 +63,6 @@ Shader "Hidden/Pixelize"
                 float2 blockCenter = blockPos * _BlockSize + _HalfBlockSize;
 
                 float4 tex = SAMPLE_TEXTURE2D(_MainTex, sampler_point_clamp, blockCenter);
-				//return float4(IN.uv,1,1);
 
                 return tex;
             }

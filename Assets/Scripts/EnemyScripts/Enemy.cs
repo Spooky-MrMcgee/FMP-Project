@@ -1,30 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization.Json;
 using Unity.VisualScripting;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem.Processors;
 
 public abstract class Enemy : MonoBehaviour, IDamageable
 {
-    [SerializeField] protected float enemyHealth, enemyDamage, enemySpeed, chaseSpeed, attackRange;
-    [SerializeField] protected List<GameObject> waypoints = new List<GameObject>();
+    [Header("Enemy Stats")]
+    [SerializeField] protected float enemyHealth;
+    [SerializeField] protected float enemyDamage;
+    [SerializeField] protected float enemySpeed;
+    [SerializeField] protected float chaseSpeed;
+    [SerializeField] protected float attackRange;
     [SerializeField] protected float staggerLimit;
+
+    [Header("Enemy Pathfinding")]
+    [SerializeField] protected List<GameObject> waypoints = new List<GameObject>();
     protected NavMeshAgent nMA;
     [SerializeField] protected GameObject currentWaypoint;
     [SerializeField] protected bool reversePath;
     [SerializeField] protected int waypointIndex;
+
+    [Header("Enemy Objects")]
     [SerializeField] protected Animator animator;
+    [SerializeField] protected EnemyStates enemyState;
     protected GameObject player;
     float totalDamageTakenSinceStagger;
-    [SerializeField] EnemyStates previousState;
-    bool stateChanged = false;
     public bool isDead = false;
+    protected enum EnemyStates
+    {
+        Idle,
+        Wandering,
+        Chase,
+        Attacking,
+        Staggered,
+        Dead,
+    }
+
 
     private void Awake()
     {
+        // Assigns all the necessary start variables before setting it to wander along its respective pathways.
         nMA = GetComponent<NavMeshAgent>();
         player = GameObject.Find("Player");
         waypointIndex = 0;
@@ -45,95 +64,82 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         enemyState = EnemyStates.Wandering;
     }
 
-    protected enum EnemyStates
-    {
-        Idle,
-        Wandering,
-        Chase,
-        Attacking,
-        Staggered,
-        Dead,
-    }
 
-    [SerializeField] protected EnemyStates enemyState;
 
     // Update is called once per frame
     void Update()
     {
-        if (!isDead)
-        { 
-            switch (enemyState)
-            {
-                case EnemyStates.Idle:
-                    HandleAnimations("isIdle");
-                    Idle();
-                    break;
-
-                case EnemyStates.Wandering:
-                    HandleAnimations("isWandering");
-                    Wander();
-                    break;
-
-                case EnemyStates.Chase:
-                    HandleAnimations("isChasing");
-                    Chase();
-                    break;
-
-                case EnemyStates.Attacking:
-                    HandleAnimations("isAttacking");
-                    Attack();
-                    break;
-
-                case EnemyStates.Staggered:
-                    HandleAnimations("isStaggered");
-                    Stagger();
-                    break;
-
-                case EnemyStates.Dead:
-                    HandleAnimations("isDead");
-                    Die();
-                    break;
-            }
-
-
-            if (Vector3.Distance(transform.position, player.transform.position) <= attackRange)
-                enemyState = EnemyStates.Attacking;
-            else if (Vector3.Distance(transform.position, player.transform.position) >= attackRange && enemyState == EnemyStates.Attacking)
-                enemyState = EnemyStates.Chase;
-        }
-        else
+        if (isDead)
+            return;
+        // Handles enemy states and assigns their appropriate animation states to them.
+        #region States Handler
+        switch (enemyState)
         {
-            enemyState = EnemyStates.Dead;
+            case EnemyStates.Idle:
+                HandleAnimations("isIdle");
+                Idle();
+                break;
+
+            case EnemyStates.Wandering:
+                HandleAnimations("isWandering");
+                Wander();
+                break;
+
+            case EnemyStates.Chase:
+                HandleAnimations("isChasing");
+                Chase();
+                break;
+
+            case EnemyStates.Attacking:
+                HandleAnimations("isAttacking");
+                Attack();
+                break;
+
+            case EnemyStates.Staggered:
+                HandleAnimations("isStaggered");
+                Stagger();
+                break;
+
+            case EnemyStates.Dead:
+                HandleAnimations("isDead");
+                Die();
+                break;
         }
+
+
+        if (Vector3.Distance(transform.position, player.transform.position) <= attackRange)
+            enemyState = EnemyStates.Attacking;
+        else if (Vector3.Distance(transform.position, player.transform.position) >= attackRange && enemyState == EnemyStates.Attacking)
+            enemyState = EnemyStates.Chase;
+        #endregion
     }
 
+    // Takes the current state and uses a string associated with it in order to enable/disable the appropriate booleans for animation events to occur.
     public void HandleAnimations(string animationTrigger)
     {
-        Debug.Log(animationTrigger);
-        Debug.Log(animator.parameterCount);
         for (int i = 0; i < animator.parameterCount; i++)
         {
             AnimatorControllerParameter animController;
             animController = animator.GetParameter(i);
             if (animController.name.ToString() == animationTrigger)
-            {
-                Debug.Log(animController.name.ToString() + ", " + animationTrigger);
                 animator.SetBool(animationTrigger, true);
-            }
             else
                 animator.SetBool(animController.name, false);
         }
     }
 
+    // Functions that allow enemies to act distinctly based on their type. Here to be overridden in their respective subclasses.
+    #region Abstract Functions
     public abstract void Attack();
     public abstract void Wander();
     public abstract void Idle();
     public abstract void Chase();
     public abstract void Stagger();
-
+    #endregion
+   
     public void TakeDamage(float damageTaken)
     {
-        Debug.Log("Damage taken innit");
+        // Handles damage being taken and aggroes/kills the enemy in response.
         totalDamageTakenSinceStagger += damageTaken;
         enemyHealth -= damageTaken;
         enemyState = EnemyStates.Chase;

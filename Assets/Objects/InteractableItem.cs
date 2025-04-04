@@ -9,4 +9,5 @@ public class InteractableItem : ScriptableObject
     public string itemDesc;
     public int quantity;
     public GameObject interactable;
+    public GameObject itemDetails;
 }

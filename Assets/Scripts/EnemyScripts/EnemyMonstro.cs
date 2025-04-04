@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class EnemyMonstro : Enemy
 {
-
-    [SerializeField] int x = 0;
+    // EnemyMonstro inherits from the base enemy script and overrides all necessary attributes in order to have it function in a unique way.
 
     public override void Wander()
     {
@@ -13,7 +12,7 @@ public class EnemyMonstro : Enemy
         nMA.isStopped = false;
         nMA.speed = enemySpeed;
         nMA.SetDestination(currentWaypoint.transform.position);
-        if (Vector3.Distance(transform.position, currentWaypoint.transform.position) < 2f)
+        if (Vector3.Distance(transform.position, currentWaypoint.transform.position) < 4f)
         {
             GetNextWaypoint();
         }
@@ -71,7 +70,6 @@ public class EnemyMonstro : Enemy
     {
         nMA.isStopped = false;
         // Chase occurs upon the player attacking an enemy, causing them to lock into the players position and charge
-        Debug.Log("Currently chasing");
         nMA.speed = chaseSpeed;
         nMA.SetDestination(GameObject.Find("Player").transform.position);
 
@@ -79,6 +77,7 @@ public class EnemyMonstro : Enemy
 
     public override void Stagger()
     {
+        // Stagger occurs when the enemy has taken enough damage, enemy will pause for a moment and then continue it's aggression
         StartCoroutine(StaggerTimer());
     }
 

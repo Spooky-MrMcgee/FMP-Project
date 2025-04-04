@@ -3,25 +3,33 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 public class UIHandler : MonoBehaviour
 {
 
     public static UIHandler Instance;
+    [Header("UI Objects")]
     [SerializeField] Sprite[] spriteSheet;
     [SerializeField] RawImage rectangleReticle;
     [SerializeField] Image targetReticle;
     [SerializeField] TextMeshProUGUI UIText;
     [SerializeField] Canvas UICanvas;
     [SerializeField] Image door;
+    [SerializeField] Image transitionPanel;
+    [SerializeField] int lineCount;
+    [SerializeField] List<string> currentText;
+
+    [Header("UI Checks")]
+    public bool transition;
+    bool reverseTransition = false;
+    float time;
     GameObject currentTarget;
     bool lockedOn;
     bool textFinished;
     bool textDisplayed;
     bool continueText;
-    [SerializeField] int lineCount;
-    [SerializeField] List<string> currentText;
     public event Action FinishInteracted;
     private void Awake()
     {
@@ -30,13 +38,21 @@ public class UIHandler : MonoBehaviour
 
     void Start()
     {
+        // Subscribing to all necessary events
         PlayerInteraction.Instance.InteractableInRange += DisplayItemUI;
         PlayerInteraction.Instance.TextInteractable += DisplayText;
         PlayerCombat.Instance.AimingAtEnemy += DisplayTargetReticle;
     }
 
+    private void OnDisable()
+    {
+        PlayerInteraction.Instance.InteractableInRange -= DisplayItemUI;
+        PlayerCombat.Instance.AimingAtEnemy -= DisplayTargetReticle;
+    }
+
     private void Update()
     {
+        // Handles all the necessary UI that updates in real time, such as player aiming and text updates.
         if (PlayerCombat.Instance.currentlyAiming)
         {
             DisplayReticle();
@@ -48,13 +64,15 @@ public class UIHandler : MonoBehaviour
             targetReticle.sprite = spriteSheet[spriteSheet.Length - 1];
             HideReticle();
         }
+
         if (!PlayerCombat.Instance.aimingAtEnemy)
             HideTargetReticle();
 
         if (textDisplayed && !textFinished && Input.GetKeyDown(KeyCode.Space))
-        {
             DisplayText(currentText);
-        }
+
+        if (transition == true)
+            PanelTransition();
 
         if (PlayerMovement.PlayerMove.nextToDoor)
             door.enabled = true;
@@ -63,19 +81,15 @@ public class UIHandler : MonoBehaviour
 
     }
 
-    private void OnDisable()
-    {
-        PlayerInteraction.Instance.InteractableInRange -= DisplayItemUI;
-        PlayerCombat.Instance.AimingAtEnemy -= DisplayTargetReticle;
-    }
 
     void DisplayItemUI(Vector3 itemPosition)
     {
-        Debug.Log("Item UI is being displayed here.");
+        // Displays an item UI pickup once integrated.
     }
 
     void DisplayText(List<string> text)
     {
+        // Takes a queue of strings based on the variable text and filters through them as the player proceeds through text dialogue.
         if (!textDisplayed)
         {
             currentText.AddRange(text);
@@ -93,15 +107,42 @@ public class UIHandler : MonoBehaviour
             }
             else
             {
-                Debug.Log("Text should be finished");
                 textFinished = true;
                 HideText();
             }
         }
     }
 
+    public void PanelTransition()
+    {
+        // If a specific puzzle or event needs a fadein/fadeout effect then PanelTransition is called.
+        Color panelColour = transitionPanel.color;
+
+        if (transitionPanel.color.a < 0)
+        {
+            time = 0;
+            panelColour.a = 0;
+            transitionPanel.color = panelColour;
+            transition = false;
+            reverseTransition = false;
+            return;
+        }
+
+        if (transitionPanel.color.a > 1)
+            reverseTransition = true;
+
+        if (reverseTransition)
+            time -= Time.deltaTime / 2;
+        else
+            time += Time.deltaTime / 2;
+        
+        panelColour.a = time;
+        transitionPanel.color = panelColour;
+    }
+
     IEnumerator TextDelay()
     {
+        // TextDelay occurs so the player cannot instantly skip through all dialogue.
         continueText = false;
         yield return new WaitForSeconds(0.1f);
         lineCount++;
@@ -111,13 +152,14 @@ public class UIHandler : MonoBehaviour
 
     IEnumerator InteractDelay()
     {
+        // InteractDelay does much the same so the player isn't stuck infinitely interacting with an object.
         yield return new WaitForSeconds(0.1f);
         textFinished = true;
     }
 
     void HideText()
     {
-        Debug.Log("Done!");
+        // HideText simply hides the displayables after an object is finished being interacted with.
         UIText.text = "";
         UIText.enabled = false;
         textDisplayed = false;
@@ -129,6 +171,7 @@ public class UIHandler : MonoBehaviour
 
     void DisplayReticle()
     {
+        // Displays the target reticle when the player is aiming.
         Cursor.visible = false;
         rectangleReticle.enabled = true;
         rectangleReticle.transform.position = new Vector2(Input.mousePosition.x + 30, Input.mousePosition.y - 30);
@@ -136,6 +179,7 @@ public class UIHandler : MonoBehaviour
 
     void HideReticle()
     {
+        // Hides the reticle on an enemy when the player moves away/stops aiming.
         Cursor.visible = true;
         rectangleReticle.enabled = false;
         HideTargetReticle();
@@ -143,11 +187,13 @@ public class UIHandler : MonoBehaviour
 
     void HideTargetReticle()
     {
+        // Hides the aiming reticle that follows the players mouse.
         targetReticle.enabled = false;
     }
 
     void DisplayTargetReticle(GameObject reticleTarget)
     {
+        // Displays the aiming reticle that follows the players mouse.
         RectTransform canvasRect = UICanvas.GetComponent<RectTransform>();
         Vector2 viewportPosition = Camera.main.WorldToViewportPoint(reticleTarget.transform.position);
         Vector2 ObjectToScreenPos = new Vector2((viewportPosition.x * canvasRect.sizeDelta.x) - (canvasRect.sizeDelta.x * 0.5f), (viewportPosition.y * canvasRect.sizeDelta.y) - (canvasRect.sizeDelta.y * 0.5f));
@@ -158,6 +204,7 @@ public class UIHandler : MonoBehaviour
 
     void ReticleFocus(Image reticle)
     {
+        // Cycles through a sprite sheet in order to highlight the player 'locking in' on an enemy.
         if (PlayerCombat.Instance.focusTime <= 0)
             PlayerCombat.Instance.focusTime = 0;
         reticle.sprite = spriteSheet[(int)Math.Round(PlayerCombat.Instance.focusTime)];

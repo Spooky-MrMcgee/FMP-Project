@@ -7,20 +7,29 @@ using UnityEngine.InputSystem;
 using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerMovement : MonoBehaviour
-{   
+{
+    
     PlayerInputs PlayerActions;
+    public static PlayerMovement PlayerMove;
     [SerializeField] CharacterController characterController;
-    [SerializeField] float speed = 6f, smoothTurnTime = 0.1f, gravity = 9.81f;
-    [SerializeField] public GameObject mousePos, currentCamera;
+    [Header("Variables")]
+    [SerializeField] float speed = 6f;
+    [SerializeField] float smoothTurnTime = 0.1f;
+    [SerializeField] float gravity = 9.81f;
+    public bool isMoving;
+    public bool nextToDoor;
+
+    [Header("Game Objects")]
+    public GameObject mousePos;
+    public GameObject currentCamera;
+    
     Vector3 forward, right, dir;
     float playerHorizontalInput, playerVerticalInput, turnSmoothVelocity;
     RaycastHit[] boxHit = null;
     Vector3 gizmoHit;
     bool canTraverseRooms = true;
-    public static PlayerMovement PlayerMove;
-    public bool isMoving;
-    public bool nextToDoor;
 
+    #region Event Subscriptions and Player Input
     private void Awake()
     {
         PlayerMove = this;
@@ -34,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
         PlayerActions.Player.PlayerMove.canceled += ctx => Move(ctx.ReadValue<Vector2>());
         PlayerActions.Enable();
     }
+    #endregion
 
     void Update()
     {
@@ -51,15 +61,10 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(gizmoHit, new Vector3(5, 5, 5));
-    }
-
     private void Move(Vector2 direction)
     {
-        if (direction.magnitude != 0 && !PlayerCombat.Instance.currentlyAiming)
+        // Move takes the players inputs and assigns them to directions for the player to move in, it also handles the players movement states.
+        if (direction.magnitude != 0 && !PlayerCombat.Instance.currentlyAiming && !PlayerInteraction.Instance.currentlyInteracting)
             PlayerManager.Instance.playerState = PlayerManager.PlayerStates.Walking;
         else if (direction.magnitude == 0 && !PlayerCombat.Instance.currentlyAiming)
             PlayerManager.Instance.playerState = PlayerManager.PlayerStates.Idle;
@@ -74,21 +79,21 @@ public class PlayerMovement : MonoBehaviour
         right = right.normalized;
     }
 
-
+    // Room Handling takes care of making sure that the cameras and player positions are always up to date with the current room, making sure that there is a seamless transition between them.
+    #region Room Handling
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponentInParent<CameraSwitch>())
+/*      if (other.gameObject.GetComponentInParent<CameraSwitch>())
         {
             other.gameObject.GetComponentInParent<CameraSwitch>().isColliding = true;
             currentCamera = other.gameObject.transform.parent.gameObject;
-        }
+        }*/
 
         if (other.transform.tag == "RoomExit" && canTraverseRooms)
         {
             nextToDoor = true;
             if (PlayerManager.Instance.playerInteract)
             {
-                Debug.Log("Player is interacting");
                 characterController.enabled = false;
                 Vector3 newPos = other.transform.GetComponent<RoomDoor>().connectingSpawn.transform.position;
                 transform.position = new Vector3(newPos.x, newPos.y + 6, newPos.z);
@@ -103,15 +108,14 @@ public class PlayerMovement : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
 
-        if (other.gameObject.GetComponentInParent<CameraSwitch>())
-            currentCamera = other.gameObject.transform.parent.gameObject;
+        /*if (other.gameObject.GetComponentInParent<CameraSwitch>())
+            currentCamera = other.gameObject.transform.parent.gameObject;*/
 
         if (other.transform.tag == "RoomExit")
         {
             nextToDoor = true;
             if (PlayerManager.Instance.playerInteract && canTraverseRooms)
             {
-                Debug.Log("Player is interacting");
                 characterController.enabled = false;
                 Vector3 newPos = other.transform.GetComponent<RoomDoor>().connectingSpawn.transform.position;
                 transform.position = new Vector3(newPos.x, newPos.y + 6, newPos.z);
@@ -125,8 +129,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.GetComponentInParent<CameraSwitch>())
-            other.gameObject.GetComponentInParent<CameraSwitch>().isColliding = false;
+        /*if (other.gameObject.GetComponentInParent<CameraSwitch>())
+            other.gameObject.GetComponentInParent<CameraSwitch>().isColliding = false;*/
 
         if (other.transform.tag == "RoomExit")
         {
@@ -140,4 +144,5 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         canTraverseRooms = true;
     }
+    #endregion
 }

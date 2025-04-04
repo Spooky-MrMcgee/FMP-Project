@@ -14,6 +14,7 @@ public class PixelizePass : ScriptableRenderPass
 
     public PixelizePass(PixelizeFeature.CustomPassSettings settings)
     {
+        // Creates a custom render pass in order to display the Pixelize shader as a fullscreen shader.
         this.settings = settings;
         this.renderPassEvent = settings.renderPassEvent;
         if (material == null) material = CoreUtils.CreateEngineMaterial("Hidden/Pixelize");
@@ -21,6 +22,7 @@ public class PixelizePass : ScriptableRenderPass
 
     public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
     {
+        //OnCameraSetup takes the block count and block size and crunches down the resolution of what's displayed on the screen in the same way a ScreenRenderer does, but without all the yucky input delays and extra rendering.
         colorBuffer = renderingData.cameraData.renderer.cameraColorTargetHandle;
 
         RenderTextureDescriptor descriptor = renderingData.cameraData.cameraTargetDescriptor;

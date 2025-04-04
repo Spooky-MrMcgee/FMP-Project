@@ -5,31 +5,45 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour, IDamageable
 {
     public static PlayerManager Instance;
-    public GameObject playerMesh;
-    public Camera currentCamera { get; private set; }
-    public float health { get; private set; }
-    [SerializeField] float maxPlayerHealth;
-    public float speed { get; private set; }
-    public bool playerInteract { get; private set; }
-    public bool playerPuzzle;    
-    
-    public RoomDetails currentRoom { get; private set; }
-
-    public Animator animator;
-
-    [SerializeField] List<InteractableItem> startingItems;
-    public List<InventoryItems> interactableItems { get; private set; } = new List<InventoryItems>();
-
     public PlayerInputs PlayerActions;
+
+    [Header("Player Stats")]
+    public float health;
+    [SerializeField] float maxPlayerHealth;
+    public float speed;
+
+    [Header("Player Objects")]
+    public GameObject playerMesh; 
+    public GameObject flashlight;
+    public Animator animator;
+    public Canvas playerCanvas;
+    public Camera currentCamera;
+    public FPTransition firstPerson;
+    public RoomDetails currentRoom;
+
+    [Header("Player Checks")]
+    public bool playerInteract;
+    public bool playerPuzzle;
+    bool hurt;
+    public bool inventory;
+
+
+    [Header("Player Inventory")]
+    [SerializeField] List<InteractableItem> startingItems;
+    public List<InventoryItems> interactableItems = new List<InventoryItems>();
     public class InventoryItems
     {
         public InteractableItem item;
         public int quantity;
     }
+
+    public event Action PlayerPressedInventoryButton;
+
 
     public enum PlayerHealthStates
     {
@@ -44,8 +58,10 @@ public class PlayerManager : MonoBehaviour, IDamageable
         Walking,
         Sprinting,
         Aiming,
+        Dead,
     }
 
+    [Header("Player States")]
     public PlayerStates playerState;
     public PlayerHealthStates playerHealthState;
 
@@ -57,7 +73,9 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
     private void Start()
     {
+        // Adding player starting items and initialising the inventory system.
         PlayerInteraction.Instance.InteractableInteracted += UpdateInventory;
+        health = maxPlayerHealth;
         foreach (var item in startingItems)
         {
             InventoryItems items = new InventoryItems();
@@ -69,6 +87,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
     private void OnEnable()
     {
+        // Hooking up Player Inputs
         PlayerActions = new PlayerInputs();
         PlayerActions.Player.PlayerInteract.performed += ctx => InteractCheck(ctx);
         PlayerActions.Player.PlayerInteract.canceled += ctx => InteractCheck(ctx);
@@ -77,37 +96,62 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
     private void OnDisable()
     {
+        // Unsubscribing from Player Inputs
         PlayerActions.Player.PlayerInteract.performed -= ctx => InteractCheck(ctx);
         PlayerActions.Player.PlayerInteract.canceled -= ctx => InteractCheck(ctx);
         PlayerInteraction.Instance.InteractableInteracted -= UpdateInventory;
     }
 
-    public event Action PlayerPressedInventoryButton;
 
     private void Update()
     {
-        if (!playerPuzzle)
-        {
-            currentCamera.transform.position = currentRoom.cameraPoint.transform.position;
-            currentCamera.transform.rotation = currentRoom.cameraPoint.transform.rotation;
-            currentCamera.orthographicSize = currentRoom.orthographicSize;
-            playerMesh.SetActive(true);
-        }
+        #region Player Inputs & Camera
+        if (PlayerInteraction.Instance.itemBeingInteracted == null)
+            UpdateCameraPosition(null);
         else
-        {
-            if (PlayerInteraction.Instance.itemBeingInteracted.GetComponent<PuzzleInteractable>())
-            {
-                currentCamera.transform.position = PlayerInteraction.Instance.itemBeingInteracted.GetComponent<PuzzleInteractable>().cameraPerspective.transform.position;
-                currentCamera.transform.rotation = PlayerInteraction.Instance.itemBeingInteracted.GetComponent<PuzzleInteractable>().cameraPerspective.transform.rotation;
-                currentCamera.orthographicSize = PlayerInteraction.Instance.itemBeingInteracted.GetComponent<PuzzleInteractable>().cameraOrthographic;
-            }
-            playerMesh.SetActive(false);
-        }
+            UpdateCameraPosition(PlayerInteraction.Instance.itemBeingInteracted.GetComponent<PuzzleInteractable>());
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             PlayerPressedInventoryButton?.Invoke();
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape) && firstPerson != null)
+            StartCoroutine(firstPerson.ExitFirstPersonTransition());
+
+        #endregion
+
+        #region First Person Handling
+        if (firstPerson != null && PlayerInteraction.Instance.currentlyInteracting == false)
+        {
+            playerCanvas.enabled = false;
+            if (firstPerson.flashlight)
+            {
+                // Activating flashlight and having it move according to the player's mouse.
+                float singleStep = 1 * Time.deltaTime;
+                flashlight.SetActive(true);
+                Vector3 mousePosition = Input.mousePosition;
+                Vector3 viewDir = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, 30));
+                flashlight.transform.LookAt(viewDir);
+            }
+            else
+            {
+                flashlight.SetActive(false);
+            }
+        }
+        else if (firstPerson == null && !inventory)
+        {
+            flashlight.transform.localRotation = new Quaternion(0, 0, 0, 0);
+            flashlight.SetActive(false);
+            playerCanvas.enabled = true;
+        }
+        #endregion
+  
+        if (PlayerInteraction.Instance.currentlyInteracting)
+            playerCanvas.enabled = true;
+
+        #region Player State Handling
+        // Animation handler takes the names based on states and then checks the bools for them
         switch (playerState)
         {
             case PlayerStates.Idle:
@@ -125,19 +169,23 @@ public class PlayerManager : MonoBehaviour, IDamageable
             case PlayerStates.Sprinting:
                 HandleAnimationStates("isSprinting");
                 break;
+
+            case PlayerStates.Dead:
+                HandleAnimationStates("isDead");
+                break;
         }
+        #endregion
     }
-    
+
     private void HandleAnimationStates(string animationTrigger)
     {
-        Debug.Log(animationTrigger);
+        // Handles the animation states for the player based on current state, takes a different string for each state that correlates with an animation boolean that switches on that boolean and all others off.
         for (int i = 0; i < animator.parameterCount; i++)
         {
             AnimatorControllerParameter animController;
             animController = animator.GetParameter(i);
             if (animController.name.ToString() == animationTrigger)
             {
-                Debug.Log(animController.name.ToString() + ", " + animationTrigger);
                 animator.SetBool(animationTrigger, true);
             }
             else
@@ -145,8 +193,43 @@ public class PlayerManager : MonoBehaviour, IDamageable
         }
     }
 
-    public void UpdateCamera(Camera camera)
+    public void UpdateCameraPosition(PuzzleInteractable puzzleInteractable)
     {
+        // Camera position is influenced by three major aspects, if the player is in firstperson, if the player is interacting with a puzzle, or if the player is in a general state the camera changes to match that.
+        if (firstPerson != null)
+        {
+            currentCamera.transform.position = firstPerson.cameraPerspective.transform.position;
+            currentCamera.transform.rotation = firstPerson.cameraPerspective.transform.rotation;
+            if (!firstPerson.isOrthographic)
+                currentCamera.orthographic = false;
+            else
+                currentCamera.orthographicSize = firstPerson.orthographicPerspective;
+            playerMesh.SetActive(false);
+            return;
+        }
+
+        currentCamera.orthographic = true;
+
+        if (!playerPuzzle)
+        {
+            currentCamera.transform.position = currentRoom.cameraPoint.transform.position;
+            currentCamera.transform.rotation = currentRoom.cameraPoint.transform.rotation;
+            currentCamera.orthographicSize = currentRoom.orthographicSize;
+            playerMesh.SetActive(true);
+        }
+        else
+        {
+            currentCamera.transform.position = puzzleInteractable.cameraPerspective.transform.position;
+            currentCamera.transform.rotation = puzzleInteractable.cameraPerspective.transform.rotation;
+            currentCamera.orthographicSize = puzzleInteractable.cameraOrthographic;
+            playerMesh.SetActive(false);
+        }
+    }
+
+    #region Inventory Handling
+    public void UpdateInventoryCamera(Camera camera)
+    {
+        // Triggers the inventory camera on/off by enabling/disabling the other camera in the scene.
         Camera[] allCameras = Camera.allCameras;
         currentCamera = camera;
         currentCamera.enabled = true;
@@ -159,13 +242,13 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
     private void UpdateInventory(InteractableItem itemType)
     {
+        // Whenever an item gets added to the players inventory it's sorted through here and added.
         InventoryItems invItem = new InventoryItems();
         foreach (InventoryItems inventoryItem in interactableItems)
         {
             if (inventoryItem.item == itemType)
             {
                 inventoryItem.quantity += itemType.quantity;
-                Debug.Log(inventoryItem.quantity);
                 return;
             }
         }
@@ -174,16 +257,57 @@ public class PlayerManager : MonoBehaviour, IDamageable
         interactableItems.Add(invItem);
     }
 
+    public bool SearchInventory(InteractableItem itemType)
+    {
+        // For when a puzzle object or key needs to be found in the players inventory for the sake of progression
+        foreach (InventoryItems inventoryItem in interactableItems)
+        {
+            if (inventoryItem.item == itemType)
+                return true;
+        }
+        return false;
+    }
+    #endregion
+
     public void TakeDamage(float damageAmount)
     {
+        // Takes from the IDamagable interface and assigns the players health states as necessary.
+        hurt = true;
         health -= damageAmount;
-        if (health >= (maxPlayerHealth / 1.5))
+        if (health <= (maxPlayerHealth / 1.5) && health > maxPlayerHealth / 3)
             playerHealthState = PlayerHealthStates.Wounded;
-        else if (health >= maxPlayerHealth / 3)
+        else if (health <= maxPlayerHealth / 3 && health > 0)
             playerHealthState = PlayerHealthStates.Critical;
+        else if (health <= 0)
+            playerState = PlayerStates.Dead;
         else
             playerHealthState = PlayerHealthStates.Healthy;
-        HandleAnimationStates("isDamaged");
+        
+        if (playerState == PlayerStates.Dead)
+        {
+            StartCoroutine(SceneReload());
+            return;
+        }
+        
+        if (hurt)
+        {
+            HandleAnimationStates("isHurt");
+            StartCoroutine("AnimationCooldown");
+        }
+    }
+
+    IEnumerator SceneReload()
+    {
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    IEnumerator AnimationCooldown()
+    {
+        // Coolsdown the players hurt animation so it's not constantly looped.
+        hurt = false;
+        yield return new WaitForSeconds(1f);
+        hurt = true;
     }
 
     public void InteractCheck(InputAction.CallbackContext ctx)

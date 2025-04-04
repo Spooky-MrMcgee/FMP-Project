@@ -16,7 +16,6 @@ public class EnemyManager : MonoBehaviour
 
     void HurtEnemy(GameObject enemyToHurt, float damage)
     {
-        Debug.Log("AAA");
         enemyToHurt.GetComponent<Enemy>().TakeDamage(damage);
     }
 }
