@@ -111,7 +111,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
         else
             UpdateCameraPosition(PlayerInteraction.Instance.itemBeingInteracted.GetComponent<PuzzleInteractable>());
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (PlayerActions.Player.PlayerInventory.WasPerformedThisFrame())
         {
             PlayerPressedInventoryButton?.Invoke();
         }
@@ -151,6 +151,12 @@ public class PlayerManager : MonoBehaviour, IDamageable
             playerCanvas.enabled = true;
 
         #region Player State Handling
+
+        if (playerState == PlayerStates.Dead)
+        {
+            HandleAnimationStates("isDead");
+            return;
+        }
         // Animation handler takes the names based on states and then checks the bools for them
         switch (playerState)
         {
@@ -168,10 +174,6 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
             case PlayerStates.Sprinting:
                 HandleAnimationStates("isSprinting");
-                break;
-
-            case PlayerStates.Dead:
-                HandleAnimationStates("isDead");
                 break;
         }
         #endregion

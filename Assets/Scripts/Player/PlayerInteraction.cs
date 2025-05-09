@@ -6,25 +6,32 @@ using UnityEngine;
 public class PlayerInteraction : MonoBehaviour
 {
     public static PlayerInteraction Instance;
+    PlayerInputs playerInputs;
     [Header("Interaction Checks")]
     public GameObject itemBeingInteracted = null;
     public bool currentlyInteracting;
     public InteractableItem currentItem;
     public bool doneInteracting;
+    bool isUsingInteract;
+    bool canInteractAgain = true;
     public InteractableScript nearestInteractable;
+    
+    public event Action InteractionButtonPressed;
+    public event Action<Vector3> InteractableInRange;
+    public event Action<InteractableItem> InteractableInteracted;
+    public event Action<List<string>> TextInteractable;
 
     private void Awake()
     {
+        playerInputs = new PlayerInputs();
         Instance = this;
+        playerInputs.Enable();
     }
 
     private void Start()
     {
         UIHandler.Instance.FinishInteracted += DoneInteracting;
     }
-    public event Action<Vector3> InteractableInRange;
-    public event Action<InteractableItem> InteractableInteracted;
-    public event Action<List<string>> TextInteractable;
 
     // Event notifies if an item is within range for UI handlers to grab and activate
     private void InteractableNearby(Vector3 itemPosition)
@@ -46,6 +53,7 @@ public class PlayerInteraction : MonoBehaviour
     void DoneInteracting()
     {
         // Removes all interaction data after an interaction is finished.
+        StartCoroutine(InteractDelay());
         currentlyInteracting = false;
         InteractableScript interactable = itemBeingInteracted.GetComponent<InteractableScript>();
         if (interactable.canDespawn)
@@ -66,16 +74,26 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
+    IEnumerator InteractDelay()
+    {
+        canInteractAgain = false;
+        yield return new WaitForSeconds(0.5f);
+        canInteractAgain = true;
+    }
+
     // All of the following scripts here handle the player's interactions based on Triggers that overlap when the player attempts to use the Interact button.
     #region Trigger Interaction Handling
     void OnTriggerEnter(Collider other)
     {
+        if (PlayerManager.Instance.firstPerson != null || !canInteractAgain)
+            return;
+
         if (other.gameObject.GetComponent<InteractableScript>())
         {   
             InteractableNearby(other.transform.position);
             nearestInteractable = other.gameObject.GetComponent<InteractableScript>();
             InteractableScript interactableObject = other.GetComponent<InteractableScript>();
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (playerInputs.Player.PlayerInteract.WasPerformedThisFrame())
             {
                 if (!currentlyInteracting)
                 {
@@ -94,11 +112,14 @@ public class PlayerInteraction : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
+        if (PlayerManager.Instance.firstPerson != null || !canInteractAgain)
+            return;
+
         if (other.gameObject.GetComponent<InteractableScript>())
         {
             InteractableNearby(other.transform.position);
             InteractableScript interactableObject = other.GetComponent<InteractableScript>();
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (playerInputs.Player.PlayerInteract.WasPerformedThisFrame())
             {
                 if (!currentlyInteracting)
                 {
@@ -116,11 +137,14 @@ public class PlayerInteraction : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
+        if (PlayerManager.Instance.firstPerson != null || !canInteractAgain)
+            return;
+
         if (other.gameObject.GetComponent<InteractableScript>())
         {
             InteractableNearby(other.transform.position);
             InteractableScript interactableObject = other.GetComponent<InteractableScript>();
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (playerInputs.Player.PlayerInteract.WasPerformedThisFrame())
             {
                 if (!currentlyInteracting)
                 {

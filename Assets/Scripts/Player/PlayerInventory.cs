@@ -32,6 +32,9 @@ public class PlayerInventory : MonoBehaviour
 
     [Header("Inventory Checks")]
     bool inventoryDisplayed = false;
+    bool topSelected;
+    bool middleSelected;
+    bool bottomSelected;
     float mouseX, mouseY, sens = 3f;
     [SerializeField] int currentItemIndex = 1;
     public static PlayerInventory Instance;
@@ -47,13 +50,13 @@ public class PlayerInventory : MonoBehaviour
     private void OnEnable()
     {
         playerInputs = new PlayerInputs();
-        playerInputs.UI.Scroll.performed += ctx => UpdateInventory(ctx.ReadValue<Vector2>());
+        playerInputs.UI.Scroll.performed += ctx => ShiftInventory(ctx.ReadValue<Vector2>());
     }
 
     private void OnDisable()
     {
         PlayerManager.Instance.PlayerPressedInventoryButton -= DisplayInventory;
-        playerInputs.UI.Scroll.performed -= ctx => UpdateInventory(ctx.ReadValue<Vector2>());
+        playerInputs.UI.Scroll.performed -= ctx => ShiftInventory(ctx.ReadValue<Vector2>());
     }
     #endregion
 
@@ -172,15 +175,19 @@ public class PlayerInventory : MonoBehaviour
                 foreach (PlayerManager.InventoryItems inventory in PlayerManager.Instance.interactableItems)
                 {
                     if (inventory.item == selectedItem)
+                    {
                         PlayerManager.Instance.interactableItems.Remove(inventory);
+                        break;
+                    }
                 }
             }    
         }
+        SortInventory();
     }
 
     // Inventory Scrolling handles all the button inputs from the player, displaying the respective items and their positions based on the players input.
     #region Inventory Scrolling
-    private void UpdateInventory(Vector2 scrollMovement)
+    private void ShiftInventory(Vector2 scrollMovement)
     {
         // Shifts the players inventory up or down based on the scroll wheel.
         if (scrollMovement.y == 1 && currentItemIndex < (PlayerManager.Instance.interactableItems.Count - 1))
@@ -208,15 +215,19 @@ public class PlayerInventory : MonoBehaviour
     {
         if (middleItem == null)
             return;
-        selectedItem = middleItem;
         selectBox.transform.position = itemNameMiddle.transform.position;
+        bottomSelected = false;
+        topSelected = false;
+        middleSelected = true;
         SortInventory();
     }
 
     public void TopItem()
     {
-        selectedItem = topItem;
         selectBox.transform.position = itemNameTop.transform.position;
+        bottomSelected = false;
+        topSelected = true;
+        middleSelected = false;
         SortInventory();
     }
 
@@ -224,8 +235,10 @@ public class PlayerInventory : MonoBehaviour
     {
         if (bottomItem == null)
             return;
-        selectedItem = bottomItem;
         selectBox.transform.position = itemNameBottom.transform.position;
+        bottomSelected = true;
+        topSelected = false;
+        middleSelected = false;
         SortInventory();
     }
     #endregion
@@ -233,12 +246,6 @@ public class PlayerInventory : MonoBehaviour
     // SortInventory is called after a major change, re-establishing the order of items and what should be displayed on the screen.
     void SortInventory()
     {
-        currentItem = selectedItem.interactable;
-        itemText.text = PlayerManager.Instance.interactableItems[currentItemIndex].item.itemDesc;
-        Destroy(displayedItem);
-        displayedItem = Instantiate(currentItem, currentItemContainer.transform);
-        displayedItem.transform.rotation = new Quaternion(0, 0, 0, 0);
-        displayedItem.layer = 5;
         if (currentItemIndex == 0 || (PlayerManager.Instance.interactableItems.Count < 3))
         {
             itemNameTop.text = PlayerManager.Instance.interactableItems[currentItemIndex].item.itemName;
@@ -272,5 +279,21 @@ public class PlayerInventory : MonoBehaviour
             itemNameBottom.text = PlayerManager.Instance.interactableItems[currentItemIndex + 1].item.itemName;
             bottomItem = PlayerManager.Instance.interactableItems[currentItemIndex + 1].item;
         }
+
+        if (topSelected)
+            selectedItem = topItem;
+        else if (middleSelected)
+            selectedItem = middleItem;
+        else if (bottomSelected)
+            selectedItem = bottomItem;
+
+        Debug.Log(selectedItem.name);
+
+        currentItem = selectedItem.interactable;
+        itemText.text = PlayerManager.Instance.interactableItems[currentItemIndex].item.itemDesc;
+        Destroy(displayedItem);
+        displayedItem = Instantiate(currentItem, currentItemContainer.transform);
+        displayedItem.transform.rotation = new Quaternion(0, 0, 0, 0);
+        displayedItem.layer = 5;
     }
 }

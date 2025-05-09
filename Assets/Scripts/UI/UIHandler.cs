@@ -68,7 +68,7 @@ public class UIHandler : MonoBehaviour
         if (!PlayerCombat.Instance.aimingAtEnemy)
             HideTargetReticle();
 
-        if (textDisplayed && !textFinished && Input.GetKeyDown(KeyCode.Space))
+        if (textDisplayed && !textFinished && PlayerManager.Instance.PlayerActions.Player.PlayerInteract.WasPerformedThisFrame())
             DisplayText(currentText);
 
         if (transition == true)

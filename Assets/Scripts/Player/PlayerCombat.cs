@@ -48,7 +48,7 @@ public class PlayerCombat : MonoBehaviour
     }
     void Update()
     {
-        if (!currentlyAiming)
+        if (!currentlyAiming || PlayerManager.Instance.playerState == PlayerManager.PlayerStates.Dead)
             return;
 
         // Aim is handled through a raycast that moves from players mouse to worldspace and only returns details based on whether it hits a layermask that only renders the enemy.
@@ -107,6 +107,9 @@ public class PlayerCombat : MonoBehaviour
 
     private void Aim(InputAction.CallbackContext ctx)
     {
+        if (PlayerManager.Instance.playerState == PlayerManager.PlayerStates.Dead)
+            return;
+
         // Uses the player input handler to tell whether the player is or isn't aiming and assigns the appropriate states to coordinate.
         if (ctx.performed)
         {

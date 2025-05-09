@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] CharacterController characterController;
     [Header("Variables")]
     [SerializeField] float speed = 6f;
+    [SerializeField] float sprintSpeed;
+    [SerializeField] float walkSpeed;
     [SerializeField] float smoothTurnTime = 0.1f;
     [SerializeField] float gravity = 9.81f;
     public bool isMoving;
@@ -40,7 +42,9 @@ public class PlayerMovement : MonoBehaviour
     {
         PlayerActions = new PlayerInputs();
         PlayerActions.Player.PlayerMove.performed += ctx => Move(ctx.ReadValue<Vector2>());
+        PlayerActions.Player.PlayerSprint.performed += ctx => Sprint(ctx);
         PlayerActions.Player.PlayerMove.canceled += ctx => Move(ctx.ReadValue<Vector2>());
+        PlayerActions.Player.PlayerSprint.canceled += ctx => Sprint(ctx);
         PlayerActions.Enable();
     }
     #endregion
@@ -51,23 +55,24 @@ public class PlayerMovement : MonoBehaviour
         dir = (playerHorizontalInput * forward) + (playerVerticalInput * right);
         if (dir.magnitude != 0 && !PlayerInteraction.Instance.currentlyInteracting)
         {
+            isMoving = true;
             float targetAngle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, smoothTurnTime);
             if (!PlayerCombat.Instance.currentlyAiming)
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
             characterController.Move(dir * (speed) * Time.deltaTime);
-            
+
             characterController.Move(new Vector3(0, -gravity, 0) * Time.deltaTime);
         }
+        else
+            isMoving = false;
     }
 
     private void Move(Vector2 direction)
     {
         // Move takes the players inputs and assigns them to directions for the player to move in, it also handles the players movement states.
-        if (direction.magnitude != 0 && !PlayerCombat.Instance.currentlyAiming && !PlayerInteraction.Instance.currentlyInteracting)
-            PlayerManager.Instance.playerState = PlayerManager.PlayerStates.Walking;
-        else if (direction.magnitude == 0 && !PlayerCombat.Instance.currentlyAiming)
-            PlayerManager.Instance.playerState = PlayerManager.PlayerStates.Idle;
+        if (PlayerManager.Instance.firstPerson != null || PlayerManager.Instance.playerState == PlayerManager.PlayerStates.Dead) 
+            return;
 
         playerHorizontalInput = direction.y;
         playerVerticalInput = direction.x;
@@ -77,6 +82,32 @@ public class PlayerMovement : MonoBehaviour
         right.y = 0f;
         forward = forward.normalized;
         right = right.normalized;
+
+        if (direction.magnitude == 0 && !PlayerCombat.Instance.currentlyAiming)
+            PlayerManager.Instance.playerState = PlayerManager.PlayerStates.Idle;
+
+        if (PlayerManager.Instance.playerState == PlayerManager.PlayerStates.Sprinting)
+            return;
+
+        if (direction.magnitude != 0 && !PlayerCombat.Instance.currentlyAiming && !PlayerInteraction.Instance.currentlyInteracting)
+            PlayerManager.Instance.playerState = PlayerManager.PlayerStates.Walking;
+    }
+
+    private void Sprint(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            Debug.Log("AAA");
+            speed = sprintSpeed;
+            if (isMoving)
+                PlayerManager.Instance.playerState = PlayerManager.PlayerStates.Sprinting;
+        }
+        else
+        {
+            speed = walkSpeed;
+            if (isMoving)
+                PlayerManager.Instance.playerState = PlayerManager.PlayerStates.Walking;
+        }
     }
 
     // Room Handling takes care of making sure that the cameras and player positions are always up to date with the current room, making sure that there is a seamless transition between them.
