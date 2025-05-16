@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   itemName: Pistol
-  itemDesc: 'My trusty pistol/n Ammo count: 0/10'
+  itemDesc: My trusty pistol, it's a little old but better to find a use for it now.
   quantity: 1
   interactable: {fileID: 8160714353173506690, guid: e249e9ffa3cbb5f439664d082adb7d80, type: 3}
+  itemDetails: {fileID: 0}
   maxAmmoCount: 10
   currentAmmo: 10
   needsAmmo: 1

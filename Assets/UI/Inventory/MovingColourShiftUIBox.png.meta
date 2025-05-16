@@ -1,0 +1,1900 @@
+fileFormatVersion: 2
+guid: c1de757faaad3854e8534d5beb47fa18
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4708
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab5b172faf2c2fb4d98fbf5515cd5ef5
+      internalID: 1953361440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_1
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 4708
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90bb730e66e29b746b711d2235eb32f1
+      internalID: -1493313378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_2
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 4708
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ebf74096ff4b694991ffdf8228c20bc
+      internalID: 6486777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_3
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 4708
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e9986102abbef145a73cbfbbcc3c89a
+      internalID: 1927546449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_4
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 4708
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c655a4060feaf443b23027200da21d8
+      internalID: -264668212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_5
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 4708
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 485d40708f279114b8d976b199469378
+      internalID: 202908530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_6
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 4708
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00d8ae0bc5299f045849b82c943d2f49
+      internalID: -1606854692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4280
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8d180f8982f616468e62bdb10f51f6b
+      internalID: 2011428335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_8
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 4280
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12e6dd35d43452b45b79f5e368ab95e9
+      internalID: -170349993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_9
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 4280
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb1ae731d1ab6674a96c7184c3e4a13f
+      internalID: -1701923232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_10
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 4280
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd963686c7cf9e14ea0495e0172daf3a
+      internalID: -1567635356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_11
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 4280
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d36d734fd98c660499efab3d25b73974
+      internalID: -904074469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_12
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 4280
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70e4d1c0cd97d4548bacaa6889dc7091
+      internalID: -778635489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_13
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 4280
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2bc2a9eb0e096944b0d76cfda7aa897
+      internalID: 1960061921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3852
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2690b8eca66cd5e4caec9420f9d2a5ea
+      internalID: 1518699603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_15
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 3852
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 244291d1e434adc4ca93ff7bcfb0e108
+      internalID: -1608493452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_16
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 3852
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bda9a14df97c60a4589cef7891178f98
+      internalID: 917115992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_17
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 3852
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1e7f89f9ab368b45b01b2afdf8ca801
+      internalID: 97484466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_18
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 3852
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 799181568740f084496104e0215e1ae8
+      internalID: 713424469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_19
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 3852
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f5edeaee4df3c347bca0554b5433d66
+      internalID: 1637398117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_20
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 3852
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3066c57aa7ac8c64093a3d0994e54903
+      internalID: 822867676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_21
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3424
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a28ad2b53e4746c468ce32dec4237fd7
+      internalID: 516616323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_22
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 3424
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e01445756bc69748ac1c8d6b5791e90
+      internalID: -1615263542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_23
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 3424
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a63e7c79a57e8bd4ab53bb77b02c5d2c
+      internalID: 812429553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_24
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 3424
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8abe7c655c825ab44b89358709296dcf
+      internalID: 898539049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_25
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 3424
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92b329a817260d745a250cfde05f8c78
+      internalID: 253619187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_26
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 3424
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4827d6178a26344694b5f8f37736af9
+      internalID: -1215761963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_27
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 3424
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b9d7232775e7e04685b4d01d23604fa
+      internalID: 208722885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_28
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2996
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0583e7bfbfa1dcb4ea73cf8b4d0c1ef2
+      internalID: 1149451417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_29
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 2996
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8c770b69d818f442a47ad3a7c4ccbb8
+      internalID: 166588939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_30
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 2996
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33ca08653778f464c8c7cbb00d98a586
+      internalID: 1411527528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_31
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 2996
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6351a4ec0596c44e8e96bf20aa1348e
+      internalID: -657673693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_32
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 2996
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d5e8cd1329fdb54abc3b0075a88e713
+      internalID: 1691620117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_33
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 2996
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d994b9d61c0837e4387061d72032e012
+      internalID: -1818251619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_34
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 2996
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5327a90ae1ff51c4f80a6cee01d32bc7
+      internalID: 49903468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_35
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2568
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2af13fa3604d0624b9495e8cff03d1ff
+      internalID: -966518316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_36
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 2568
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8abf313998a37184eb2f5d29c63d630e
+      internalID: -837009285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_37
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 2568
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 175617cee2264fa429255e92c79a8b25
+      internalID: 900988253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_38
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 2568
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93c4a047c7ebcdc4a9bdf34e3f61279f
+      internalID: 1392016544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_39
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 2568
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2007973de218dd478a8d7b3f7426b35
+      internalID: -1910573465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_40
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 2568
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d62bdc8b61875243a2030cc47506bd1
+      internalID: 1834400098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_41
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 2568
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e27b59187bebee48839431bb4609b90
+      internalID: 923099055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_42
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2140
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adea247da721ba54586ad3c762b54f7a
+      internalID: 1169962447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_43
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 2140
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3f854e1ab6d6494baf9558f7eb839e6
+      internalID: -2007251771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_44
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 2140
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91c5f29a02ba5ca4c86b6f15a5bf6aff
+      internalID: 427051283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_45
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 2140
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5cfa546617fd40046a116973b0afeb14
+      internalID: 1428711573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_46
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 2140
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4132cf2f640a794182ee059fa7a07d2
+      internalID: 956942252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_47
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 2140
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 837e42b06550e124a857a5d5eb48a215
+      internalID: -945082318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_48
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 2140
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa374fd544ff32c41b5771bfe82bae62
+      internalID: -1650249780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_49
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1712
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b89a4c34e7914c4fb063eba402d4037
+      internalID: 165528502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_50
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 1712
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4395983b51159e41b0aa4f831bb3059
+      internalID: -1174601620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_51
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 1712
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb2f8470bc7bc1a42b6e7c92571f5132
+      internalID: 1615398251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_52
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 1712
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11482a754583a4140974d5bd6269be85
+      internalID: 1973120647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_53
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 1712
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 677d1882cd7810740be0ad33a7c0abf8
+      internalID: -1199192072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_54
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 1712
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5838beafbd3003f448d3e6bdef1656ea
+      internalID: -210680928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_55
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 1712
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5e9378a97c0454489c1fd3c626f07ec
+      internalID: 1536248723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_56
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1284
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88d3cb54fbe6ed147a2ec951acda2544
+      internalID: -357303530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_57
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 1284
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61d19725215857c42bd63ee16a3da1b3
+      internalID: 1463184368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_58
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 1284
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74414f7ed6dbba04baa29b807832a4aa
+      internalID: -413247146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_59
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 1284
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d7524a640c175049ab1e96f068e5bcd
+      internalID: -965696075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_60
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 1284
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57cc048825a8f1b4abafef755ef78f74
+      internalID: -1270229828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_61
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 1284
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b94c717b079cda249a0b3fc77aa9dd88
+      internalID: -535263899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_62
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 1284
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e4b10e8c78a10e41a30d2ea74603b3b
+      internalID: -1867640349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_63
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 856
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fa848b1a7f540c41bf68a31aa3fac7f
+      internalID: 773810482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_64
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 856
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dee21ef7461ab2e48bb83d34cd7e61bb
+      internalID: 1222595617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_65
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 856
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60f1364d04a12f34eb1f3b555ad5cf49
+      internalID: -415552563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_66
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 856
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a1fcd9f3cff0874db288824138e0fe0
+      internalID: -1372776823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_67
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 856
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b339e670c7740c4784f6aa9fae6b93c
+      internalID: -890164525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_68
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 856
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 625249cfa16d6334990bfae599815dbe
+      internalID: -1159780416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_69
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 856
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5eb408669584f934bb0145b0136b2537
+      internalID: -1600520458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_70
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 428
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 617a731bcd19ea941a20592530794a1b
+      internalID: -361621572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_71
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 428
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0d48b7870b054a41aaa5f84e4f247aa
+      internalID: -423077089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_72
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 428
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93193ecba4f654f4ebdb9d9d8b8f90b2
+      internalID: -1111444607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_73
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 428
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d54ec46e7ae0027458b7a2501737bd98
+      internalID: -1577503658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_74
+      rect:
+        serializedVersion: 2
+        x: 2560
+        y: 428
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7515cd3d2499b3848be8df10151c7ea7
+      internalID: -1329444072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_75
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 428
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8562574212b68448b719c9d390f9159
+      internalID: 821592303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_76
+      rect:
+        serializedVersion: 2
+        x: 3840
+        y: 428
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 432fa93ca254d1646b6e0b6da13a605a
+      internalID: -1597941606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_77
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5973b945860eeee47a47517d16bd6ff7
+      internalID: 658291579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_78
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 509bc47a90f27e24bb64fce015bd4f1b
+      internalID: 125524390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MovingColourShiftUIBox_79
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 0
+        width: 640
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c32afd3004d9a8249922779ccef14a32
+      internalID: -485841939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 83c2461389ec70446bf547f9c30025e3
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      MovingColourShiftUIBox_0: 1953361440
+      MovingColourShiftUIBox_1: -1493313378
+      MovingColourShiftUIBox_10: -1567635356
+      MovingColourShiftUIBox_11: -904074469
+      MovingColourShiftUIBox_12: -778635489
+      MovingColourShiftUIBox_13: 1960061921
+      MovingColourShiftUIBox_14: 1518699603
+      MovingColourShiftUIBox_15: -1608493452
+      MovingColourShiftUIBox_16: 917115992
+      MovingColourShiftUIBox_17: 97484466
+      MovingColourShiftUIBox_18: 713424469
+      MovingColourShiftUIBox_19: 1637398117
+      MovingColourShiftUIBox_2: 6486777
+      MovingColourShiftUIBox_20: 822867676
+      MovingColourShiftUIBox_21: 516616323
+      MovingColourShiftUIBox_22: -1615263542
+      MovingColourShiftUIBox_23: 812429553
+      MovingColourShiftUIBox_24: 898539049
+      MovingColourShiftUIBox_25: 253619187
+      MovingColourShiftUIBox_26: -1215761963
+      MovingColourShiftUIBox_27: 208722885
+      MovingColourShiftUIBox_28: 1149451417
+      MovingColourShiftUIBox_29: 166588939
+      MovingColourShiftUIBox_3: 1927546449
+      MovingColourShiftUIBox_30: 1411527528
+      MovingColourShiftUIBox_31: -657673693
+      MovingColourShiftUIBox_32: 1691620117
+      MovingColourShiftUIBox_33: -1818251619
+      MovingColourShiftUIBox_34: 49903468
+      MovingColourShiftUIBox_35: -966518316
+      MovingColourShiftUIBox_36: -837009285
+      MovingColourShiftUIBox_37: 900988253
+      MovingColourShiftUIBox_38: 1392016544
+      MovingColourShiftUIBox_39: -1910573465
+      MovingColourShiftUIBox_4: -264668212
+      MovingColourShiftUIBox_40: 1834400098
+      MovingColourShiftUIBox_41: 923099055
+      MovingColourShiftUIBox_42: 1169962447
+      MovingColourShiftUIBox_43: -2007251771
+      MovingColourShiftUIBox_44: 427051283
+      MovingColourShiftUIBox_45: 1428711573
+      MovingColourShiftUIBox_46: 956942252
+      MovingColourShiftUIBox_47: -945082318
+      MovingColourShiftUIBox_48: -1650249780
+      MovingColourShiftUIBox_49: 165528502
+      MovingColourShiftUIBox_5: 202908530
+      MovingColourShiftUIBox_50: -1174601620
+      MovingColourShiftUIBox_51: 1615398251
+      MovingColourShiftUIBox_52: 1973120647
+      MovingColourShiftUIBox_53: -1199192072
+      MovingColourShiftUIBox_54: -210680928
+      MovingColourShiftUIBox_55: 1536248723
+      MovingColourShiftUIBox_56: -357303530
+      MovingColourShiftUIBox_57: 1463184368
+      MovingColourShiftUIBox_58: -413247146
+      MovingColourShiftUIBox_59: -965696075
+      MovingColourShiftUIBox_6: -1606854692
+      MovingColourShiftUIBox_60: -1270229828
+      MovingColourShiftUIBox_61: -535263899
+      MovingColourShiftUIBox_62: -1867640349
+      MovingColourShiftUIBox_63: 773810482
+      MovingColourShiftUIBox_64: 1222595617
+      MovingColourShiftUIBox_65: -415552563
+      MovingColourShiftUIBox_66: -1372776823
+      MovingColourShiftUIBox_67: -890164525
+      MovingColourShiftUIBox_68: -1159780416
+      MovingColourShiftUIBox_69: -1600520458
+      MovingColourShiftUIBox_7: 2011428335
+      MovingColourShiftUIBox_70: -361621572
+      MovingColourShiftUIBox_71: -423077089
+      MovingColourShiftUIBox_72: -1111444607
+      MovingColourShiftUIBox_73: -1577503658
+      MovingColourShiftUIBox_74: -1329444072
+      MovingColourShiftUIBox_75: 821592303
+      MovingColourShiftUIBox_76: -1597941606
+      MovingColourShiftUIBox_77: 658291579
+      MovingColourShiftUIBox_78: 125524390
+      MovingColourShiftUIBox_79: -485841939
+      MovingColourShiftUIBox_8: -170349993
+      MovingColourShiftUIBox_9: -1701923232
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -143,6 +143,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         totalDamageTakenSinceStagger += damageTaken;
         enemyHealth -= damageTaken;
         enemyState = EnemyStates.Chase;
+        AudioManager.Instance.PlaySFX("EnemyHit");
 
         if (totalDamageTakenSinceStagger > staggerLimit)
         {
@@ -157,6 +158,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     public void Die()
     {
         isDead = true;
+        AudioManager.Instance.PlaySFX("EnemyDeathGurgle");
         nMA.isStopped = true;
     }
 }

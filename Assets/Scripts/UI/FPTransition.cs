@@ -35,6 +35,7 @@ public class FPTransition : MonoBehaviour, IInteractable
         }
         PlayerInteraction.Instance.itemBeingInteracted = null;
         PlayerManager.Instance.firstPerson = null;
+        PlayerManager.Instance.firstPersonFinished = true;
         yield return null;
     }
 

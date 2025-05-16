@@ -7,5 +7,24 @@ public class RoomDetails : MonoBehaviour
     public GameObject roomCollider, spawnPoint, cameraPoint, connectingSpawn;
     public Object[] collectibles;
     public Enemy[] enemies;
+    public bool followPlayer;
+    public bool lockX, lockZ;
+    public Vector2 clampX, clampZ;
     public float orthographicSize;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(other.name);
+        if (other.transform.tag == "Player")
+            PlayerManager.Instance.currentRoom = this;
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        Debug.Log(other.name);
+        if (other.transform.tag == "Player")
+        {
+            PlayerManager.Instance.previousRoom = this;
+        }
+    }
 }

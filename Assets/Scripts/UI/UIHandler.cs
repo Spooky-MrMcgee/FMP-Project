@@ -12,7 +12,7 @@ public class UIHandler : MonoBehaviour
     public static UIHandler Instance;
     [Header("UI Objects")]
     [SerializeField] Sprite[] spriteSheet;
-    [SerializeField] RawImage rectangleReticle;
+    [SerializeField] Image rectangleReticle;
     [SerializeField] Image targetReticle;
     [SerializeField] TextMeshProUGUI UIText;
     [SerializeField] Canvas UICanvas;
@@ -20,6 +20,9 @@ public class UIHandler : MonoBehaviour
     [SerializeField] Image transitionPanel;
     [SerializeField] int lineCount;
     [SerializeField] List<string> currentText;
+    [SerializeField] Image itemPopUp;
+    [SerializeField] Image puzzlePopUp;
+    [SerializeField] Sprite[] itemPopUpSprite;
 
     [Header("UI Checks")]
     public bool transition;
@@ -30,6 +33,8 @@ public class UIHandler : MonoBehaviour
     bool textFinished;
     bool textDisplayed;
     bool continueText;
+    bool itemUIDisplayed;
+    [SerializeField] GameObject currentItem;
     public event Action FinishInteracted;
     private void Awake()
     {
@@ -40,6 +45,7 @@ public class UIHandler : MonoBehaviour
     {
         // Subscribing to all necessary events
         PlayerInteraction.Instance.InteractableInRange += DisplayItemUI;
+        PlayerInteraction.Instance.InteractableNoLongerInRange += HideItemUI;
         PlayerInteraction.Instance.TextInteractable += DisplayText;
         PlayerCombat.Instance.AimingAtEnemy += DisplayTargetReticle;
     }
@@ -82,9 +88,41 @@ public class UIHandler : MonoBehaviour
     }
 
 
-    void DisplayItemUI(Vector3 itemPosition)
+    void DisplayItemUI(GameObject itemObject)
     {
-        // Displays an item UI pickup once integrated.
+        itemUIDisplayed = true;
+        Debug.Log(itemObject.name);
+        RectTransform canvasRect = UICanvas.GetComponent<RectTransform>();
+        currentItem = itemObject;
+        if (itemObject.GetComponent<InteractableScript>() == null)
+            itemObject = itemObject.transform.parent.gameObject;
+       
+        if (itemObject.GetComponent<InteractableScript>().collectable)
+        {
+            itemPopUp.enabled = true;
+            Vector2 popUpPosition = Camera.main.WorldToViewportPoint(currentItem.transform.position);
+            Vector2 objectToScreenPos = new Vector2((popUpPosition.x * canvasRect.sizeDelta.x) - (canvasRect.sizeDelta.x * 0.5f), (popUpPosition.y * canvasRect.sizeDelta.y) - (canvasRect.sizeDelta.y * 0.5f));
+            itemPopUp.rectTransform.anchoredPosition = objectToScreenPos;
+        }
+        else if (itemObject.GetComponent<PuzzleInteractable>())
+        {
+            puzzlePopUp.enabled = true;
+            Vector2 popUpPosition = Camera.main.WorldToViewportPoint(currentItem.transform.position);
+            Vector2 objectToScreenPos = new Vector2((popUpPosition.x * canvasRect.sizeDelta.x) - (canvasRect.sizeDelta.x * 0.5f), (popUpPosition.y * canvasRect.sizeDelta.y) - (canvasRect.sizeDelta.y * 0.5f));
+            puzzlePopUp.rectTransform.anchoredPosition = objectToScreenPos;
+        }
+        currentItem = itemObject;
+    }
+
+    void HideItemUI(GameObject currentItemToHide)
+    {
+        Debug.Log("Hiding UI");
+        if (currentItem == currentItemToHide)
+        {
+            itemPopUp.enabled = false;
+            puzzlePopUp.enabled = false;
+        }
+
     }
 
     void DisplayText(List<string> text)
@@ -96,6 +134,7 @@ public class UIHandler : MonoBehaviour
             UIText.enabled = true;
             UIText.text = currentText[lineCount];
             StartCoroutine(TextDelay());
+            AudioManager.Instance.PlaySFX("MainCharacterTalking");
         }
 
         if (textDisplayed && continueText)
@@ -104,6 +143,7 @@ public class UIHandler : MonoBehaviour
             {
                 UIText.text = currentText[lineCount];
                 StartCoroutine(TextDelay());
+                AudioManager.Instance.PlaySFX("MainCharacterTalking");
             }
             else
             {
@@ -196,9 +236,9 @@ public class UIHandler : MonoBehaviour
         // Displays the aiming reticle that follows the players mouse.
         RectTransform canvasRect = UICanvas.GetComponent<RectTransform>();
         Vector2 viewportPosition = Camera.main.WorldToViewportPoint(reticleTarget.transform.position);
-        Vector2 ObjectToScreenPos = new Vector2((viewportPosition.x * canvasRect.sizeDelta.x) - (canvasRect.sizeDelta.x * 0.5f), (viewportPosition.y * canvasRect.sizeDelta.y) - (canvasRect.sizeDelta.y * 0.5f));
+        Vector2 objectToScreenPos = new Vector2((viewportPosition.x * canvasRect.sizeDelta.x) - (canvasRect.sizeDelta.x * 0.5f), (viewportPosition.y * canvasRect.sizeDelta.y) - (canvasRect.sizeDelta.y * 0.5f));
         targetReticle.enabled = true;
-        targetReticle.rectTransform.anchoredPosition = ObjectToScreenPos;
+        targetReticle.rectTransform.anchoredPosition = objectToScreenPos;
         ReticleFocus(targetReticle);
     }
 

@@ -40,12 +40,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerActions = new PlayerInputs();
+        PlayerActions = PlayerManager.Instance.PlayerActions;
         PlayerActions.Player.PlayerMove.performed += ctx => Move(ctx.ReadValue<Vector2>());
         PlayerActions.Player.PlayerSprint.performed += ctx => Sprint(ctx);
         PlayerActions.Player.PlayerMove.canceled += ctx => Move(ctx.ReadValue<Vector2>());
         PlayerActions.Player.PlayerSprint.canceled += ctx => Sprint(ctx);
-        PlayerActions.Enable();
     }
     #endregion
 
@@ -114,12 +113,6 @@ public class PlayerMovement : MonoBehaviour
     #region Room Handling
     private void OnTriggerEnter(Collider other)
     {
-/*      if (other.gameObject.GetComponentInParent<CameraSwitch>())
-        {
-            other.gameObject.GetComponentInParent<CameraSwitch>().isColliding = true;
-            currentCamera = other.gameObject.transform.parent.gameObject;
-        }*/
-
         if (other.transform.tag == "RoomExit" && canTraverseRooms)
         {
             nextToDoor = true;
@@ -129,6 +122,7 @@ public class PlayerMovement : MonoBehaviour
                 Vector3 newPos = other.transform.GetComponent<RoomDoor>().connectingSpawn.transform.position;
                 transform.position = new Vector3(newPos.x, newPos.y + 6, newPos.z);
                 characterController.enabled = true;
+                AudioManager.Instance.PlaySFX("DoorClose");
                 StartCoroutine(RoomCooldown());
             }
             if (!canTraverseRooms)
@@ -151,6 +145,7 @@ public class PlayerMovement : MonoBehaviour
                 Vector3 newPos = other.transform.GetComponent<RoomDoor>().connectingSpawn.transform.position;
                 transform.position = new Vector3(newPos.x, newPos.y + 6, newPos.z);
                 characterController.enabled = true;
+                AudioManager.Instance.PlaySFX("DoorClose");
                 StartCoroutine(RoomCooldown());
             }
             if (!canTraverseRooms)

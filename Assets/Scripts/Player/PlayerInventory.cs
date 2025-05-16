@@ -13,21 +13,20 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] Camera mainCamera;
     [SerializeField] GameObject currentItem;
     [SerializeField] GameObject currentItemContainer;
+    [SerializeField] GameObject leftItemContainer;
+    [SerializeField] GameObject leftItem;
+    [SerializeField] GameObject rightItemContainer;
+    [SerializeField] GameObject rightItem;
     [SerializeField] GameObject displayedItem;
     [SerializeField] GameObject selectBox;
     [SerializeField] GameObject panel;
 
     [Header("Text Objects")]
     [SerializeField] TextMeshProUGUI itemText;
-    [SerializeField] TextMeshProUGUI itemNameTop;
-    [SerializeField] TextMeshProUGUI itemNameMiddle;
-    [SerializeField] TextMeshProUGUI itemNameBottom;
+    [SerializeField] TextMeshProUGUI itemName;
     [SerializeField] TextMeshProUGUI useText;
 
     [Header("Inventory Items")]
-    [SerializeField] InteractableItem topItem;
-    [SerializeField] InteractableItem middleItem;
-    [SerializeField] InteractableItem bottomItem;
     [SerializeField] InteractableItem selectedItem;
 
     [Header("Inventory Checks")]
@@ -37,6 +36,8 @@ public class PlayerInventory : MonoBehaviour
     bool bottomSelected;
     float mouseX, mouseY, sens = 3f;
     [SerializeField] int currentItemIndex = 1;
+    [SerializeField] Animator inventoryAnimator;
+    [SerializeField] InventorySwitch inventorySwitch;
     public static PlayerInventory Instance;
 
     // Subscribes to events and player inputs
@@ -50,6 +51,10 @@ public class PlayerInventory : MonoBehaviour
     private void OnEnable()
     {
         playerInputs = new PlayerInputs();
+        playerInputs.UI.Use.performed += ctx => UseItem();
+        playerInputs.UI.ShiftLeft.performed += ctx => StartCoroutine(ShiftLeft());
+        playerInputs.UI.ShiftRight.performed += ctx => StartCoroutine(ShiftRight());
+        playerInputs.UI.Exit.performed += ctx => DisplayInventory();
         playerInputs.UI.Scroll.performed += ctx => ShiftInventory(ctx.ReadValue<Vector2>());
     }
 
@@ -66,7 +71,6 @@ public class PlayerInventory : MonoBehaviour
         // Handles item rotation based on mouse input.
         if (inventoryDisplayed)
         {
-            UpdateInventory();
             if (Input.GetMouseButton(0))
             {
                 mouseX = Input.GetAxisRaw("Mouse X");
@@ -83,45 +87,37 @@ public class PlayerInventory : MonoBehaviour
         if (!inventoryDisplayed)
         {
             playerInputs.UI.Enable();
-            playerInputs.Player.Disable();
+            PlayerManager.Instance.PlayerActions.Player.Disable();
             PlayerManager.Instance.playerCanvas.enabled = false;
             PlayerManager.Instance.inventory = true;
             inventoryDisplayed = true;
             panel.SetActive(true);
-            PlayerManager.Instance.UpdateInventoryCamera(inventoryCamera);
             selectedItem = PlayerManager.Instance.interactableItems[currentItemIndex].item;
             currentItem = selectedItem.interactable;
 
-            topItem = selectedItem;
-            if ((currentItemIndex + 1) <= PlayerManager.Instance.interactableItems.Count)
-                middleItem = PlayerManager.Instance.interactableItems[currentItemIndex + 1].item;
-            if ((currentItemIndex + 2) < PlayerManager.Instance.interactableItems.Count)
-                bottomItem = PlayerManager.Instance.interactableItems[currentItemIndex + 2].item;
-            
+
+            itemName.text = PlayerManager.Instance.interactableItems[currentItemIndex].item.itemName;
             itemText.text = PlayerManager.Instance.interactableItems[currentItemIndex].item.itemDesc;
             displayedItem = Instantiate(currentItem, currentItemContainer.transform);
             displayedItem.layer = 5;
-            itemNameTop.text = PlayerManager.Instance.interactableItems[currentItemIndex].item.itemName;
             
             // Assigns proper text tags based on whether an object is usable or has a different feature like reloading.
             if (selectedItem is WeaponBP)
-                useText.text = "RELOAD";
+            {
+                useText.text = "Press 'E' to reload";
+                itemText.text += "<br>Ammo count " + PlayerCombat.Instance.activeWeapon.currentAmmo + "/" + PlayerCombat.Instance.activeWeapon.maxAmmoCount + ".";
+            }    
             else
-                useText.text = "USE";
-            if ((currentItemIndex + 1) <= PlayerManager.Instance.interactableItems.Count)
-                itemNameMiddle.text = PlayerManager.Instance.interactableItems[currentItemIndex + 1].item.itemName;
-            if ((currentItemIndex + 2) < PlayerManager.Instance.interactableItems.Count)
-                itemNameBottom.text = PlayerManager.Instance.interactableItems[currentItemIndex + 2].item.itemName;
+                useText.text = "Press 'E' to use";
         }
         else
         {
             // Hides Player Inventory
-            PlayerManager.Instance.UpdateInventoryCamera(mainCamera);
             PlayerManager.Instance.inventory = false;
             PlayerManager.Instance.playerCanvas.enabled = true;
             playerInputs.UI.Disable();
             panel.SetActive(false);
-            playerInputs.Player.Enable();
+            PlayerManager.Instance.PlayerActions.Player.Enable();
             Destroy(displayedItem);
             inventoryDisplayed = false;
         }
@@ -132,18 +128,14 @@ public class PlayerInventory : MonoBehaviour
         // Makes sure to consistently update inventory so that all information on the screen is accurate.
         currentItem = selectedItem.interactable;
         itemText.text = selectedItem.itemDesc;
-        itemNameTop.text = topItem.itemName;
+
         if (selectedItem is WeaponBP)
         {
-            useText.text = "RELOAD";
-            itemText.text = "Ammo count " + PlayerCombat.Instance.activeWeapon.currentAmmo + "/" + PlayerCombat.Instance.activeWeapon.maxAmmoCount + ".";
+            useText.text = "Press 'E' to reload";
+            itemText.text += "<br>Ammo count " + PlayerCombat.Instance.activeWeapon.currentAmmo + "/" + PlayerCombat.Instance.activeWeapon.maxAmmoCount + ".";
         }
         else
-            useText.text = "USE";
-        if ((currentItemIndex + 1) <= PlayerManager.Instance.interactableItems.Count)
-            itemNameMiddle.text = middleItem.itemName;
-        if ((currentItemIndex + 2) < PlayerManager.Instance.interactableItems.Count)
-            itemNameBottom.text = PlayerManager.Instance.interactableItems[currentItemIndex + 2].item.itemName;
+            useText.text = "Press 'E' to use";
     }
 
     public void UseItem()
@@ -189,111 +181,60 @@ public class PlayerInventory : MonoBehaviour
     #region Inventory Scrolling
     private void ShiftInventory(Vector2 scrollMovement)
     {
-        // Shifts the players inventory up or down based on the scroll wheel.
-        if (scrollMovement.y == 1 && currentItemIndex < (PlayerManager.Instance.interactableItems.Count - 1))
-            ShiftUp();
-        if (scrollMovement.y == -1 && currentItemIndex > 0)
-            ShiftDown();
+
+    }
+
+    public IEnumerator ShiftLeft()
+    {
+        if (currentItemIndex == 0)
+            yield return null;
+
+        leftItem = Instantiate(PlayerManager.Instance.interactableItems[currentItemIndex-1].item.interactable, leftItemContainer.transform);
+        inventoryAnimator.SetBool("shiftLeft", true);
+        yield return new WaitForSeconds(0.25f);
+        inventoryAnimator.SetBool("shiftLeft", false);
+        inventorySwitch.SwitchItemsLeft();
+        currentItemIndex--;
+        //currentItem = leftItem;
+        //currentItem.layer = 5;
+        //displayedItem = leftItem;
+        //leftItem = null;
         SortInventory();
     }
 
-    public void ShiftDown()
+    public IEnumerator ShiftRight()
     {
-        if (currentItemIndex < (PlayerManager.Instance.interactableItems.Count - 1) && PlayerManager.Instance.interactableItems.Count >= 3)
-            currentItemIndex++;
-        SortInventory();
-    }
 
-    public void ShiftUp()
-    {
-        if (currentItemIndex > 0)
-            currentItemIndex--;
-        SortInventory();
-    }
-
-    public void MiddleItem()
-    {
-        if (middleItem == null)
-            return;
-        selectBox.transform.position = itemNameMiddle.transform.position;
-        bottomSelected = false;
-        topSelected = false;
-        middleSelected = true;
-        SortInventory();
-    }
-
-    public void TopItem()
-    {
-        selectBox.transform.position = itemNameTop.transform.position;
-        bottomSelected = false;
-        topSelected = true;
-        middleSelected = false;
-        SortInventory();
-    }
-
-    public void BottomItem()
-    {
-        if (bottomItem == null)
-            return;
-        selectBox.transform.position = itemNameBottom.transform.position;
-        bottomSelected = true;
-        topSelected = false;
-        middleSelected = false;
+        if (currentItemIndex >= PlayerManager.Instance.interactableItems.Count - 1)
+            yield return null;
+        
+        rightItem = Instantiate(PlayerManager.Instance.interactableItems[currentItemIndex+1].item.interactable, rightItemContainer.transform);
+        inventoryAnimator.SetBool("shiftRight", true);
+        yield return new WaitForSeconds(0.25f);
+        inventoryAnimator.SetBool("shiftRight", false);
+        currentItemIndex++;
+        //inventorySwitch.SwitchItemsRight();
+        //displayedItem = rightItem;
+        //rightItem = null;
         SortInventory();
     }
     #endregion
-
+    
     // SortInventory is called after a major change, re-establishing the order of items and what should be displayed on the screen.
     void SortInventory()
     {
-        if (currentItemIndex == 0 || (PlayerManager.Instance.interactableItems.Count < 3))
+        selectedItem = PlayerManager.Instance.interactableItems[currentItemIndex].item;
+        currentItem = selectedItem.interactable;
+        currentItem.layer = 5;
+        itemName.text = PlayerManager.Instance.interactableItems[currentItemIndex].item.itemName;
+        itemText.text = PlayerManager.Instance.interactableItems[currentItemIndex].item.itemDesc;
+
+        if (selectedItem is WeaponBP)
         {
-            itemNameTop.text = PlayerManager.Instance.interactableItems[currentItemIndex].item.itemName;
-            topItem = PlayerManager.Instance.interactableItems[currentItemIndex].item;
-            if (PlayerManager.Instance.interactableItems.Count > 1)
-            {
-                itemNameMiddle.text = PlayerManager.Instance.interactableItems[currentItemIndex + 1].item.itemName;
-                middleItem = PlayerManager.Instance.interactableItems[currentItemIndex + 1].item;
-            }
-            if (PlayerManager.Instance.interactableItems.Count > 2)
-            {
-                itemNameBottom.text = PlayerManager.Instance.interactableItems[currentItemIndex + 2].item.itemName;
-                bottomItem = PlayerManager.Instance.interactableItems[currentItemIndex + 2].item;
-            }
-        }
-        else if (currentItemIndex == PlayerManager.Instance.interactableItems.Count - 1)
-        {
-            itemNameTop.text = PlayerManager.Instance.interactableItems[currentItemIndex - 2].item.itemName;
-            topItem = PlayerManager.Instance.interactableItems[currentItemIndex - 2].item;
-            itemNameMiddle.text = PlayerManager.Instance.interactableItems[currentItemIndex - 1].item.itemName;
-            middleItem = PlayerManager.Instance.interactableItems[currentItemIndex - 1].item;
-            itemNameBottom.text = PlayerManager.Instance.interactableItems[currentItemIndex].item.itemName;
-            bottomItem = PlayerManager.Instance.interactableItems[currentItemIndex].item;
+            useText.text = "Press 'E' to reload";
+            itemText.text += "<br>Ammo count " + PlayerCombat.Instance.activeWeapon.currentAmmo + "/" + PlayerCombat.Instance.activeWeapon.maxAmmoCount + ".";
         }
         else
-        {
-            itemNameTop.text = PlayerManager.Instance.interactableItems[currentItemIndex - 1].item.itemName;
-            topItem = PlayerManager.Instance.interactableItems[currentItemIndex - 1].item;
-            itemNameMiddle.text = PlayerManager.Instance.interactableItems[currentItemIndex].item.itemName;
-            middleItem = PlayerManager.Instance.interactableItems[currentItemIndex].item;
-            itemNameBottom.text = PlayerManager.Instance.interactableItems[currentItemIndex + 1].item.itemName;
-            bottomItem = PlayerManager.Instance.interactableItems[currentItemIndex + 1].item;
-        }
-
-        if (topSelected)
-            selectedItem = topItem;
-        else if (middleSelected)
-            selectedItem = middleItem;
-        else if (bottomSelected)
-            selectedItem = bottomItem;
-
-        Debug.Log(selectedItem.name);
-
-        currentItem = selectedItem.interactable;
-        itemText.text = PlayerManager.Instance.interactableItems[currentItemIndex].item.itemDesc;
-        Destroy(displayedItem);
-        displayedItem = Instantiate(currentItem, currentItemContainer.transform);
-        displayedItem.transform.rotation = new Quaternion(0, 0, 0, 0);
-        displayedItem.layer = 5;
+            useText.text = "Press 'E' to use";
     }
 }

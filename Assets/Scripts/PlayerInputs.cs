@@ -229,6 +229,42 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ShiftLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""e9cefdef-ecae-445a-83c8-4d7dcce401fc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShiftRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""87ead46c-605f-40f9-85ba-beca4c5619e3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Use"",
+                    ""type"": ""Button"",
+                    ""id"": ""02d53c05-1a81-4ab9-8077-e195bf1e7e29"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Exit"",
+                    ""type"": ""Button"",
+                    ""id"": ""bd28fe6a-c9e4-4728-854a-38da5b6ae270"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -240,6 +276,94 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""PlayerKeyboard"",
                     ""action"": ""Scroll"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""53942ade-f403-4638-bdb3-748eb22b16f9"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShiftLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e7119a20-e2a6-4ac0-a04c-381639c1abc6"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShiftLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""78c14dc8-6afe-4fe7-81eb-16f66935dfd1"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShiftRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""63488386-fa73-435b-b7ee-71c259f69485"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShiftRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c26edaf1-69ea-4148-a0fe-961babb8fe84"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Use"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1e8ea5f5-48a1-4906-90aa-d93a7eb00e40"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Use"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c31e5bbe-b3c6-418a-ab69-07869c04407c"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4ae40bc6-7680-4905-9f3f-a6961781c199"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Exit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -304,6 +428,10 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Scroll = m_UI.FindAction("Scroll", throwIfNotFound: true);
+        m_UI_ShiftLeft = m_UI.FindAction("ShiftLeft", throwIfNotFound: true);
+        m_UI_ShiftRight = m_UI.FindAction("ShiftRight", throwIfNotFound: true);
+        m_UI_Use = m_UI.FindAction("Use", throwIfNotFound: true);
+        m_UI_Exit = m_UI.FindAction("Exit", throwIfNotFound: true);
         // Cutscene
         m_Cutscene = asset.FindActionMap("Cutscene", throwIfNotFound: true);
         m_Cutscene_Continue = m_Cutscene.FindAction("Continue", throwIfNotFound: true);
@@ -455,11 +583,19 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_UI;
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_Scroll;
+    private readonly InputAction m_UI_ShiftLeft;
+    private readonly InputAction m_UI_ShiftRight;
+    private readonly InputAction m_UI_Use;
+    private readonly InputAction m_UI_Exit;
     public struct UIActions
     {
         private @PlayerInputs m_Wrapper;
         public UIActions(@PlayerInputs wrapper) { m_Wrapper = wrapper; }
         public InputAction @Scroll => m_Wrapper.m_UI_Scroll;
+        public InputAction @ShiftLeft => m_Wrapper.m_UI_ShiftLeft;
+        public InputAction @ShiftRight => m_Wrapper.m_UI_ShiftRight;
+        public InputAction @Use => m_Wrapper.m_UI_Use;
+        public InputAction @Exit => m_Wrapper.m_UI_Exit;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -472,6 +608,18 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @Scroll.started += instance.OnScroll;
             @Scroll.performed += instance.OnScroll;
             @Scroll.canceled += instance.OnScroll;
+            @ShiftLeft.started += instance.OnShiftLeft;
+            @ShiftLeft.performed += instance.OnShiftLeft;
+            @ShiftLeft.canceled += instance.OnShiftLeft;
+            @ShiftRight.started += instance.OnShiftRight;
+            @ShiftRight.performed += instance.OnShiftRight;
+            @ShiftRight.canceled += instance.OnShiftRight;
+            @Use.started += instance.OnUse;
+            @Use.performed += instance.OnUse;
+            @Use.canceled += instance.OnUse;
+            @Exit.started += instance.OnExit;
+            @Exit.performed += instance.OnExit;
+            @Exit.canceled += instance.OnExit;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -479,6 +627,18 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @Scroll.started -= instance.OnScroll;
             @Scroll.performed -= instance.OnScroll;
             @Scroll.canceled -= instance.OnScroll;
+            @ShiftLeft.started -= instance.OnShiftLeft;
+            @ShiftLeft.performed -= instance.OnShiftLeft;
+            @ShiftLeft.canceled -= instance.OnShiftLeft;
+            @ShiftRight.started -= instance.OnShiftRight;
+            @ShiftRight.performed -= instance.OnShiftRight;
+            @ShiftRight.canceled -= instance.OnShiftRight;
+            @Use.started -= instance.OnUse;
+            @Use.performed -= instance.OnUse;
+            @Use.canceled -= instance.OnUse;
+            @Exit.started -= instance.OnExit;
+            @Exit.performed -= instance.OnExit;
+            @Exit.canceled -= instance.OnExit;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -563,6 +723,10 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     public interface IUIActions
     {
         void OnScroll(InputAction.CallbackContext context);
+        void OnShiftLeft(InputAction.CallbackContext context);
+        void OnShiftRight(InputAction.CallbackContext context);
+        void OnUse(InputAction.CallbackContext context);
+        void OnExit(InputAction.CallbackContext context);
     }
     public interface ICutsceneActions
     {

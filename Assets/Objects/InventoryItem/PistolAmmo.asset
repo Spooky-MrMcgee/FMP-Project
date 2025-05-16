@@ -15,4 +15,5 @@ MonoBehaviour:
   itemName: Pistol Ammo
   itemDesc: Standard bullets for my pistol, I'll have to use these sparingly.
   quantity: 10
-  interactable: {fileID: 919132149155446097, guid: f6a07984ecbb44e48a77f1e9f368743e, type: 3}
+  interactable: {fileID: 7224606723878012613, guid: a163acc9643afe7418f1850b3c0bfcf2, type: 3}
+  itemDetails: {fileID: 0}

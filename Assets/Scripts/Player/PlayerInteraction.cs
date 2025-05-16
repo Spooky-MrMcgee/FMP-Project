@@ -13,13 +13,14 @@ public class PlayerInteraction : MonoBehaviour
     public InteractableItem currentItem;
     public bool doneInteracting;
     bool isUsingInteract;
-    bool canInteractAgain = true;
+    [SerializeField] bool canInteractAgain = true;
     public InteractableScript nearestInteractable;
     
     public event Action InteractionButtonPressed;
-    public event Action<Vector3> InteractableInRange;
+    public event Action<GameObject> InteractableInRange;
     public event Action<InteractableItem> InteractableInteracted;
     public event Action<List<string>> TextInteractable;
+    public event Action<GameObject> InteractableNoLongerInRange; 
 
     private void Awake()
     {
@@ -34,9 +35,9 @@ public class PlayerInteraction : MonoBehaviour
     }
 
     // Event notifies if an item is within range for UI handlers to grab and activate
-    private void InteractableNearby(Vector3 itemPosition)
+    private void InteractableNearby(GameObject interactable)
     {
-        InteractableInRange?.Invoke(itemPosition);
+        InteractableInRange?.Invoke(interactable);
     }
 
     // Event notifies if an item has been interacted with and picked up.
@@ -67,6 +68,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             PuzzleInteractable puzzleInteractable = itemBeingInteracted.GetComponent<PuzzleInteractable>();
             PlayerManager.Instance.playerPuzzle = false;
+            PlayerManager.Instance.playerPuzzleFinished = true;
             if (puzzleInteractable.fpTransition == null)
                 return;
             // If the puzzle then moves to a FirstPerson transition it then handles that here.
@@ -89,8 +91,14 @@ public class PlayerInteraction : MonoBehaviour
             return;
 
         if (other.gameObject.GetComponent<InteractableScript>())
-        {   
-            InteractableNearby(other.transform.position);
+        {
+            if (!currentlyInteracting)
+            {
+                if (other.gameObject.transform.Find("PopUpPlacement") != null)
+                    InteractableNearby(other.gameObject.transform.Find("PopUpPlacement").gameObject);
+                else
+                    InteractableNearby(other.gameObject);
+            }
             nearestInteractable = other.gameObject.GetComponent<InteractableScript>();
             InteractableScript interactableObject = other.GetComponent<InteractableScript>();
             if (playerInputs.Player.PlayerInteract.WasPerformedThisFrame())
@@ -103,6 +111,7 @@ public class PlayerInteraction : MonoBehaviour
                 }
                 if (currentlyInteracting && itemBeingInteracted == other.gameObject)
                 {
+                    InteractableNoLongerInRange?.Invoke(other.gameObject);
                     interactableObject.Interact();
                 }
             }
@@ -117,10 +126,18 @@ public class PlayerInteraction : MonoBehaviour
 
         if (other.gameObject.GetComponent<InteractableScript>())
         {
-            InteractableNearby(other.transform.position);
+            if (!currentlyInteracting)
+            {
+                if (other.gameObject.transform.Find("PopUpPlacement") != null)
+                    InteractableNearby(other.gameObject.transform.Find("PopUpPlacement").gameObject);
+                else
+                    InteractableNearby(other.gameObject);
+            }
+            nearestInteractable = other.gameObject.GetComponent<InteractableScript>();
             InteractableScript interactableObject = other.GetComponent<InteractableScript>();
             if (playerInputs.Player.PlayerInteract.WasPerformedThisFrame())
             {
+                Debug.Log("Interacting");
                 if (!currentlyInteracting)
                 {
                     PlayerManager.Instance.playerState = PlayerManager.PlayerStates.Idle;
@@ -129,7 +146,10 @@ public class PlayerInteraction : MonoBehaviour
                 }
                 if (currentlyInteracting && itemBeingInteracted == other.gameObject)
                 {
+                    InteractableNoLongerInRange?.Invoke(other.gameObject);
                     interactableObject.Interact();
+                    if (interactableObject.collectable)
+                        PlayerManager.Instance.playerState = PlayerManager.PlayerStates.Interacting;
                 }
             }
         }
@@ -137,26 +157,8 @@ public class PlayerInteraction : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (PlayerManager.Instance.firstPerson != null || !canInteractAgain)
-            return;
-
         if (other.gameObject.GetComponent<InteractableScript>())
-        {
-            InteractableNearby(other.transform.position);
-            InteractableScript interactableObject = other.GetComponent<InteractableScript>();
-            if (playerInputs.Player.PlayerInteract.WasPerformedThisFrame())
-            {
-                if (!currentlyInteracting)
-                {
-                    itemBeingInteracted = other.gameObject;
-                    currentlyInteracting = true;
-                }
-                if (currentlyInteracting && itemBeingInteracted == other.gameObject)
-                {
-                    interactableObject.Interact();
-                }
-            }
-        }
+            InteractableNoLongerInRange?.Invoke(other.gameObject);
     }
     #endregion
 }

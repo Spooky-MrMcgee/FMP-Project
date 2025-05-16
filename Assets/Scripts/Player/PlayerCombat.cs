@@ -12,6 +12,7 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] GameObject firePoint;
     [SerializeField] GameObject bloodSplatter;
     [SerializeField] TrailRenderer bulletTrail;
+    [SerializeField] GameObject muzzleFlash;
 
     [Header("Target Variables")]
     [SerializeField] LayerMask playerMask, enemyMask;
@@ -136,6 +137,7 @@ public class PlayerCombat : MonoBehaviour
             activeWeapon.RemoveAmmo();
         
         TrailRenderer newBulletTrail = Instantiate(bulletTrail, firePoint.transform.position, Quaternion.identity);
+        AudioManager.Instance.PlaySFX("GunShot");
         enemyAttacked?.Invoke(enemyToAttack, (activeWeapon.weaponDamage / (focusTime + 1)));
         canFire = false;
         focusTime += 2f;
@@ -144,6 +146,7 @@ public class PlayerCombat : MonoBehaviour
         Vector3 dir = (firePoint.transform.position - targetToFireAt.transform.position).normalized;
         Instantiate(bloodSplatter, targetToFireAt.transform.position, transform.rotation);
         StartCoroutine(ShotCooldown());
+        StartCoroutine(LightFlash());
         StartCoroutine(BulletTrail(newBulletTrail, targetToFireAt.transform.position));
     }
 
@@ -170,5 +173,13 @@ public class PlayerCombat : MonoBehaviour
         // Cooldown between each shot.
         yield return new WaitForSeconds(activeWeapon.weaponSpeed);
         canFire = true;
+    }
+
+    IEnumerator LightFlash()
+    {
+        muzzleFlash.SetActive(true);
+        yield return new WaitForSeconds(0.07f);
+        muzzleFlash.SetActive(false);
+
     }
 }

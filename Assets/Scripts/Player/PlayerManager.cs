@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 public class PlayerManager : MonoBehaviour, IDamageable
 {
@@ -23,12 +24,17 @@ public class PlayerManager : MonoBehaviour, IDamageable
     public Animator animator;
     public Canvas playerCanvas;
     public Camera currentCamera;
+    public GameObject virtualCamera;
     public FPTransition firstPerson;
     public RoomDetails currentRoom;
+    public RoomDetails previousRoom;
+    float camX, camZ;
 
     [Header("Player Checks")]
     public bool playerInteract;
     public bool playerPuzzle;
+    public bool playerPuzzleFinished;
+    public bool firstPersonFinished;
     bool hurt;
     public bool inventory;
 
@@ -57,6 +63,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
         Idle,
         Walking,
         Sprinting,
+        Interacting,
         Aiming,
         Dead,
     }
@@ -106,6 +113,9 @@ public class PlayerManager : MonoBehaviour, IDamageable
     private void Update()
     {
         #region Player Inputs & Camera
+
+        Debug.Log(virtualCamera.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize);
+
         if (PlayerInteraction.Instance.itemBeingInteracted == null)
             UpdateCameraPosition(null);
         else
@@ -175,6 +185,9 @@ public class PlayerManager : MonoBehaviour, IDamageable
             case PlayerStates.Sprinting:
                 HandleAnimationStates("isSprinting");
                 break;
+            case PlayerStates.Interacting:
+                HandleAnimationStates("isInteracting");
+                break;
         }
         #endregion
     }
@@ -200,12 +213,12 @@ public class PlayerManager : MonoBehaviour, IDamageable
         // Camera position is influenced by three major aspects, if the player is in firstperson, if the player is interacting with a puzzle, or if the player is in a general state the camera changes to match that.
         if (firstPerson != null)
         {
-            currentCamera.transform.position = firstPerson.cameraPerspective.transform.position;
-            currentCamera.transform.rotation = firstPerson.cameraPerspective.transform.rotation;
+            virtualCamera.transform.position = firstPerson.cameraPerspective.transform.position;
+            virtualCamera.transform.rotation = firstPerson.cameraPerspective.transform.rotation;
             if (!firstPerson.isOrthographic)
                 currentCamera.orthographic = false;
             else
-                currentCamera.orthographicSize = firstPerson.orthographicPerspective;
+                virtualCamera.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = firstPerson.orthographicPerspective;
             playerMesh.SetActive(false);
             return;
         }
@@ -214,16 +227,66 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
         if (!playerPuzzle)
         {
-            currentCamera.transform.position = currentRoom.cameraPoint.transform.position;
-            currentCamera.transform.rotation = currentRoom.cameraPoint.transform.rotation;
-            currentCamera.orthographicSize = currentRoom.orthographicSize;
+            if (currentRoom != previousRoom)
+            {
+                virtualCamera.transform.position = currentRoom.cameraPoint.transform.position;
+                virtualCamera.transform.rotation = currentRoom.cameraPoint.transform.rotation;
+                previousRoom = currentRoom;
+            }
+
+            if (playerPuzzleFinished)
+            {
+                virtualCamera.transform.position = currentRoom.cameraPoint.transform.position;
+                virtualCamera.transform.rotation = currentRoom.cameraPoint.transform.rotation;
+                playerPuzzleFinished = false;
+            }
+
+            if (firstPersonFinished)
+            {
+                virtualCamera.transform.position = currentRoom.cameraPoint.transform.position;
+                virtualCamera.transform.rotation = currentRoom.cameraPoint.transform.rotation;
+                firstPersonFinished = false;
+            }
+
+            #region Clamp Handling
+            if (currentRoom.lockX)
+                camX = virtualCamera.transform.position.x;
+            else
+                camX = virtualCamera.transform.position.x + playerMesh.transform.position.x;
+
+            if (currentRoom.lockZ)
+                camZ = virtualCamera.transform.position.z;
+            else
+                camZ = playerMesh.transform.position.z;
+            
+            if (currentRoom.clampX.x != 0 && currentRoom.clampX.y != 0)
+            {
+                if (playerMesh.transform.position.x >= currentRoom.clampX.x || playerMesh.transform.position.x <= currentRoom.clampX.y)
+                    currentRoom.followPlayer = false;
+                else
+                    currentRoom.followPlayer = true;
+            }
+
+            if (currentRoom.clampZ.x != 0 && currentRoom.clampZ.y != 0)
+            {
+                if (playerMesh.transform.position.z >= currentRoom.clampZ.x || playerMesh.transform.position.z <= currentRoom.clampZ.y)
+                    currentRoom.followPlayer = false;
+                else
+                    currentRoom.followPlayer = true;
+            }
+
+            if (currentRoom.followPlayer)
+                virtualCamera.transform.position = new Vector3(camX, virtualCamera.transform.position.y, camZ);
+
+            virtualCamera.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = currentRoom.orthographicSize;
             playerMesh.SetActive(true);
+            #endregion
         }
         else
         {
-            currentCamera.transform.position = puzzleInteractable.cameraPerspective.transform.position;
-            currentCamera.transform.rotation = puzzleInteractable.cameraPerspective.transform.rotation;
-            currentCamera.orthographicSize = puzzleInteractable.cameraOrthographic;
+            virtualCamera.transform.position = puzzleInteractable.cameraPerspective.transform.position;
+            virtualCamera.transform.rotation = puzzleInteractable.cameraPerspective.transform.rotation;
+            virtualCamera.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = puzzleInteractable.cameraOrthographic;
             playerMesh.SetActive(false);
         }
     }
@@ -318,11 +381,5 @@ public class PlayerManager : MonoBehaviour, IDamageable
             playerInteract = true;
         else
             playerInteract = false;
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.transform.tag == "Room")
-            currentRoom = other.transform.root.GetComponent<RoomDetails>();
     }
 }
