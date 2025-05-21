@@ -137,7 +137,6 @@ public class PlayerInteraction : MonoBehaviour
             InteractableScript interactableObject = other.GetComponent<InteractableScript>();
             if (playerInputs.Player.PlayerInteract.WasPerformedThisFrame())
             {
-                Debug.Log("Interacting");
                 if (!currentlyInteracting)
                 {
                     PlayerManager.Instance.playerState = PlayerManager.PlayerStates.Idle;

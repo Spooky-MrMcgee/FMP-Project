@@ -114,8 +114,6 @@ public class PlayerManager : MonoBehaviour, IDamageable
     {
         #region Player Inputs & Camera
 
-        Debug.Log(virtualCamera.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize);
-
         if (PlayerInteraction.Instance.itemBeingInteracted == null)
             UpdateCameraPosition(null);
         else

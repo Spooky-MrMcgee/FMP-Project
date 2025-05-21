@@ -5,28 +5,51 @@ using UnityEngine;
 public class InventorySwitch : MonoBehaviour
 {
     [SerializeField] GameObject inventoryObjectMiddle, inventoryObjectLeft, inventoryObjectRight;
-    Vector3 middlePos, leftPos, rightPos;
+    [SerializeField] Vector3 middlePos, leftPos, rightPos;
+    bool moveLeft, moveRight;
+    float step;
+    [SerializeField] float itemMoveSpeed;
+    private void Update()
+    {
+        if (moveLeft)
+        {
+            if (Vector3.Distance(inventoryObjectLeft.transform.GetChild(0).transform.position, inventoryObjectMiddle.transform.position) < 0.01f)
+            {
+                Destroy(inventoryObjectMiddle.transform.GetChild(0).gameObject);
+                inventoryObjectLeft.transform.GetChild(0).parent = inventoryObjectMiddle.transform;
+                Debug.Log("This is occuring");
+                moveLeft = false;
+                return;
+            }
+            step = itemMoveSpeed * Time.deltaTime;
+            inventoryObjectMiddle.transform.GetChild(0).transform.position = Vector3.MoveTowards(inventoryObjectMiddle.transform.GetChild(0).transform.position, inventoryObjectRight.transform.position, step);
+            inventoryObjectLeft.transform.GetChild(0).transform.position = Vector3.MoveTowards(inventoryObjectLeft.transform.GetChild(0).transform.position, inventoryObjectMiddle.transform.position, step);
+        }
+
+        if (moveRight)
+        {
+            if (Vector3.Distance(inventoryObjectRight.transform.GetChild(0).transform.position, inventoryObjectMiddle.transform.position) < 0.01f)
+            {
+                Destroy(inventoryObjectMiddle.transform.GetChild(0).gameObject);
+                inventoryObjectRight.transform.GetChild(0).parent = inventoryObjectMiddle.transform;
+                moveRight = false;
+                return;
+            }
+            step = itemMoveSpeed * Time.deltaTime;
+            inventoryObjectMiddle.transform.GetChild(0).transform.position = Vector3.MoveTowards(inventoryObjectMiddle.transform.GetChild(0).transform.position, inventoryObjectLeft.transform.position, step);
+            inventoryObjectRight.transform.GetChild(0).transform.position = Vector3.MoveTowards(inventoryObjectRight.transform.GetChild(0).transform.position, inventoryObjectMiddle.transform.position, step);
+        }
+    }
+
     public bool SwitchItemsLeft()
     {
-        Debug.Log("Performing the switch");
-        inventoryObjectMiddle.transform.GetChild(0).transform.position = rightPos;
-        inventoryObjectLeft.transform.GetChild(0).transform.position = middlePos;
-        inventoryObjectMiddle.transform.GetChild(0).parent = inventoryObjectRight.transform;
-        inventoryObjectLeft.transform.GetChild(0).parent = inventoryObjectMiddle.transform;
-        inventoryObjectMiddle.transform.GetChild(0).transform.localPosition = new Vector3(0, 0, 0);
-        Destroy(inventoryObjectRight.transform.GetChild(0).gameObject);
+        moveLeft = true;
         return true;
     }
 
     public bool SwitchItemsRight()
     {
-        Debug.Log("Performing the switch");
-        inventoryObjectMiddle.transform.GetChild(0).transform.position = leftPos;
-        inventoryObjectRight.transform.GetChild(0).transform.position = middlePos;
-        inventoryObjectMiddle.transform.GetChild(0).parent = inventoryObjectLeft.transform;
-        inventoryObjectRight.transform.GetChild(0).parent = inventoryObjectMiddle.transform;
-        inventoryObjectMiddle.transform.GetChild(0).transform.localPosition = new Vector3(0, 0, 0);
-        Destroy(inventoryObjectLeft.transform.GetChild(0).gameObject);
+        moveRight = true;
         return true;
     }
 }

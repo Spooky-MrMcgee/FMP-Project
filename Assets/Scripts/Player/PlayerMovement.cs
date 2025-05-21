@@ -96,7 +96,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (ctx.performed)
         {
-            Debug.Log("AAA");
             speed = sprintSpeed;
             if (isMoving)
                 PlayerManager.Instance.playerState = PlayerManager.PlayerStates.Sprinting;

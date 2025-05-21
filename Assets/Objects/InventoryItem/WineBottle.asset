@@ -15,5 +15,5 @@ MonoBehaviour:
   itemName: Wine Bottle
   itemDesc: A bottle of wine for mother
   quantity: 1
-  interactable: {fileID: 919132149155446097, guid: 9d959322592f59d4284f05c351eaf11e, type: 3}
+  interactable: {fileID: 5606208689729971841, guid: 10513490e0bbc5f45872581b63247086, type: 3}
   itemDetails: {fileID: 0}

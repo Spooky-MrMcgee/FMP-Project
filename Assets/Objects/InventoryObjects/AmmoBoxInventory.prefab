@@ -34,19 +34,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f6a07984ecbb44e48a77f1e9f368743e, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.18301274
+      value: 0.2799118
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f6a07984ecbb44e48a77f1e9f368743e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.6830127
+      value: 0.5922485
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f6a07984ecbb44e48a77f1e9f368743e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.6830127
+      value: 0.73389804
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f6a07984ecbb44e48a77f1e9f368743e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.18301274
+      value: 0.1796799
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f6a07984ecbb44e48a77f1e9f368743e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -63,6 +63,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f6a07984ecbb44e48a77f1e9f368743e, type: 3}
       propertyPath: m_Name
       value: AmmoBoxInventory
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f6a07984ecbb44e48a77f1e9f368743e, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f6a07984ecbb44e48a77f1e9f368743e, type: 3}
       propertyPath: m_TagString

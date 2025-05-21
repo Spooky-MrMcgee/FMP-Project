@@ -15,4 +15,5 @@ MonoBehaviour:
   itemName: Rusted Key
   itemDesc: Looks old, I don't think I've ever seen this key before?
   quantity: 1
-  interactable: {fileID: 919132149155446097, guid: 62b2528a85243824fbd955c878909dff, type: 3}
+  interactable: {fileID: 1746631529142112251, guid: 51c4bd3321828364495cbf706153c4b1, type: 3}
+  itemDetails: {fileID: 0}

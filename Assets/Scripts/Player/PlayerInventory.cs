@@ -7,16 +7,16 @@ using UnityEngine.UIElements;
 
 public class PlayerInventory : MonoBehaviour
 {
-    PlayerInputs playerInputs;
+    public PlayerInputs inventoryInputs;
     [Header("Inventory Objects")]
     [SerializeField] Camera inventoryCamera;
     [SerializeField] Camera mainCamera;
     [SerializeField] GameObject currentItem;
     [SerializeField] GameObject currentItemContainer;
-    [SerializeField] GameObject leftItemContainer;
-    [SerializeField] GameObject leftItem;
-    [SerializeField] GameObject rightItemContainer;
-    [SerializeField] GameObject rightItem;
+    public GameObject leftItemContainer;
+    public GameObject leftItem;
+    public GameObject rightItemContainer;
+    public GameObject rightItem;
     [SerializeField] GameObject displayedItem;
     [SerializeField] GameObject selectBox;
     [SerializeField] GameObject panel;
@@ -35,7 +35,7 @@ public class PlayerInventory : MonoBehaviour
     bool middleSelected;
     bool bottomSelected;
     float mouseX, mouseY, sens = 3f;
-    [SerializeField] int currentItemIndex = 1;
+    public int currentItemIndex = 1;
     [SerializeField] Animator inventoryAnimator;
     [SerializeField] InventorySwitch inventorySwitch;
     public static PlayerInventory Instance;
@@ -50,18 +50,18 @@ public class PlayerInventory : MonoBehaviour
 
     private void OnEnable()
     {
-        playerInputs = new PlayerInputs();
-        playerInputs.UI.Use.performed += ctx => UseItem();
-        playerInputs.UI.ShiftLeft.performed += ctx => StartCoroutine(ShiftLeft());
-        playerInputs.UI.ShiftRight.performed += ctx => StartCoroutine(ShiftRight());
-        playerInputs.UI.Exit.performed += ctx => DisplayInventory();
-        playerInputs.UI.Scroll.performed += ctx => ShiftInventory(ctx.ReadValue<Vector2>());
+        inventoryInputs = new PlayerInputs();
+        inventoryInputs.UI.Use.performed += ctx => UseItem();
+        inventoryInputs.UI.ShiftLeft.performed += ctx => StartCoroutine(ShiftLeft());
+        inventoryInputs.UI.ShiftRight.performed += ctx => StartCoroutine(ShiftRight());
+        inventoryInputs.UI.Exit.performed += ctx => DisplayInventory();
+        inventoryInputs.UI.Scroll.performed += ctx => ShiftInventory(ctx.ReadValue<Vector2>());
     }
 
     private void OnDisable()
     {
         PlayerManager.Instance.PlayerPressedInventoryButton -= DisplayInventory;
-        playerInputs.UI.Scroll.performed -= ctx => ShiftInventory(ctx.ReadValue<Vector2>());
+        inventoryInputs.UI.Scroll.performed -= ctx => ShiftInventory(ctx.ReadValue<Vector2>());
     }
     #endregion
 
@@ -84,9 +84,12 @@ public class PlayerInventory : MonoBehaviour
     // Displays and hides the inventory based on whether it is currently on the screen, also assigns all the initial variables to get the inventory to load.
     public void DisplayInventory()
     {
+        if (UIHandler.Instance.textDisplayed)
+            return;
+
         if (!inventoryDisplayed)
         {
-            playerInputs.UI.Enable();
+            inventoryInputs.UI.Enable();
             PlayerManager.Instance.PlayerActions.Player.Disable();
             PlayerManager.Instance.playerCanvas.enabled = false;
             PlayerManager.Instance.inventory = true;
@@ -115,7 +118,7 @@ public class PlayerInventory : MonoBehaviour
             // Hides Player Inventory
             PlayerManager.Instance.inventory = false;
             PlayerManager.Instance.playerCanvas.enabled = true;
-            playerInputs.UI.Disable();
+            inventoryInputs.UI.Disable();
             panel.SetActive(false);
             PlayerManager.Instance.PlayerActions.Player.Enable();
             Destroy(displayedItem);
@@ -144,7 +147,7 @@ public class PlayerInventory : MonoBehaviour
         if (selectedItem is WeaponBP)
         {
             WeaponBP weapon = (WeaponBP)selectedItem;
-            foreach(PlayerManager.InventoryItems ammo in  PlayerManager.Instance.interactableItems)
+            foreach (PlayerManager.InventoryItems ammo in PlayerManager.Instance.interactableItems)
             {
                 if (ammo.item == weapon.ammoType)
                 {
@@ -160,19 +163,21 @@ public class PlayerInventory : MonoBehaviour
         }
         else if (selectedItem.itemDetails.GetComponent<IUsable>() != null)
         {
-            selectedItem.itemDetails.GetComponent<IUsable>().Use();
-            selectedItem.quantity -= 1;
-            if (selectedItem.quantity <= 0)
+            foreach (PlayerManager.InventoryItems inventory in PlayerManager.Instance.interactableItems)
             {
-                foreach (PlayerManager.InventoryItems inventory in PlayerManager.Instance.interactableItems)
+                if (inventory.item == selectedItem)
                 {
-                    if (inventory.item == selectedItem)
+                    selectedItem.itemDetails.GetComponent<IUsable>().Use();
+                    inventory.quantity -= 1;
+                    if (inventory.quantity <= 0)
                     {
                         PlayerManager.Instance.interactableItems.Remove(inventory);
-                        break;
+                        Destroy(displayedItem);
                     }
+                    SortInventory();
+                    break;
                 }
-            }    
+            }  
         }
         SortInventory();
     }
@@ -190,15 +195,15 @@ public class PlayerInventory : MonoBehaviour
             yield return null;
 
         leftItem = Instantiate(PlayerManager.Instance.interactableItems[currentItemIndex-1].item.interactable, leftItemContainer.transform);
-        inventoryAnimator.SetBool("shiftLeft", true);
-        yield return new WaitForSeconds(0.25f);
-        inventoryAnimator.SetBool("shiftLeft", false);
         inventorySwitch.SwitchItemsLeft();
+        inventoryInputs.UI.Disable();
+        yield return new WaitForSeconds(0.3f);
+        inventoryInputs.UI.Enable();
         currentItemIndex--;
-        //currentItem = leftItem;
-        //currentItem.layer = 5;
-        //displayedItem = leftItem;
-        //leftItem = null;
+        currentItem = leftItem;
+        currentItem.layer = 5;
+        displayedItem = leftItem;
+        leftItem = null;
         SortInventory();
     }
 
@@ -209,13 +214,13 @@ public class PlayerInventory : MonoBehaviour
             yield return null;
         
         rightItem = Instantiate(PlayerManager.Instance.interactableItems[currentItemIndex+1].item.interactable, rightItemContainer.transform);
-        inventoryAnimator.SetBool("shiftRight", true);
-        yield return new WaitForSeconds(0.25f);
-        inventoryAnimator.SetBool("shiftRight", false);
+        inventorySwitch.SwitchItemsRight();
+        inventoryInputs.UI.Disable();
+        yield return new WaitForSeconds(0.3f);
+        inventoryInputs.UI.Enable();
         currentItemIndex++;
-        //inventorySwitch.SwitchItemsRight();
-        //displayedItem = rightItem;
-        //rightItem = null;
+        displayedItem = rightItem;
+        rightItem = null;
         SortInventory();
     }
     #endregion
@@ -225,7 +230,9 @@ public class PlayerInventory : MonoBehaviour
     {
         selectedItem = PlayerManager.Instance.interactableItems[currentItemIndex].item;
         currentItem = selectedItem.interactable;
-        currentItem.layer = 5;
+        Destroy(displayedItem);
+        displayedItem = Instantiate(currentItem, currentItemContainer.transform);
+        displayedItem.layer = 5;
         itemName.text = PlayerManager.Instance.interactableItems[currentItemIndex].item.itemName;
         itemText.text = PlayerManager.Instance.interactableItems[currentItemIndex].item.itemDesc;
 
@@ -234,7 +241,12 @@ public class PlayerInventory : MonoBehaviour
             useText.text = "Press 'E' to reload";
             itemText.text += "<br>Ammo count " + PlayerCombat.Instance.activeWeapon.currentAmmo + "/" + PlayerCombat.Instance.activeWeapon.maxAmmoCount + ".";
         }
-        else
+        else if (selectedItem.interactable.name.Contains("Ammo"))
+        {
+            useText.text = "";
+            itemText.text += "<br>Remaining ammo: " + PlayerManager.Instance.interactableItems[currentItemIndex].quantity;
+        }
+        else if (selectedItem.itemDetails != null)
             useText.text = "Press 'E' to use";
     }
 }

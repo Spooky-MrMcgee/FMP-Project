@@ -31,7 +31,7 @@ public class UIHandler : MonoBehaviour
     GameObject currentTarget;
     bool lockedOn;
     bool textFinished;
-    bool textDisplayed;
+    public bool textDisplayed { get; private set; }
     bool continueText;
     bool itemUIDisplayed;
     [SerializeField] GameObject currentItem;
@@ -90,8 +90,6 @@ public class UIHandler : MonoBehaviour
 
     void DisplayItemUI(GameObject itemObject)
     {
-        itemUIDisplayed = true;
-        Debug.Log(itemObject.name);
         RectTransform canvasRect = UICanvas.GetComponent<RectTransform>();
         currentItem = itemObject;
         if (itemObject.GetComponent<InteractableScript>() == null)
@@ -116,7 +114,6 @@ public class UIHandler : MonoBehaviour
 
     void HideItemUI(GameObject currentItemToHide)
     {
-        Debug.Log("Hiding UI");
         if (currentItem == currentItemToHide)
         {
             itemPopUp.enabled = false;

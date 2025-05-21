@@ -14,14 +14,12 @@ public class RoomDetails : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name);
         if (other.transform.tag == "Player")
             PlayerManager.Instance.currentRoom = this;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log(other.name);
         if (other.transform.tag == "Player")
         {
             PlayerManager.Instance.previousRoom = this;
