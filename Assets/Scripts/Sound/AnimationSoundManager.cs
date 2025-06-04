@@ -12,6 +12,8 @@ public class AnimationSoundManager : MonoBehaviour
     [SerializeField] AudioSource mcFootR;
 
     [SerializeField] GameObject gun;
+    [SerializeField] GameObject wineMother;
+    [SerializeField] GameObject wineMC;
     private void FootstepLeftMonstro()
     {
         mFootL.Play();
@@ -45,5 +47,15 @@ public class AnimationSoundManager : MonoBehaviour
     private void GunON()
     {
         gun.SetActive(true);
+    }
+
+    private void WineOFF()
+    {
+        wineMC.SetActive(false);
+    }
+
+    private void WineON()
+    {
+        wineMother.SetActive(true);
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WinePuzzle : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class WinePuzzle : MonoBehaviour
     [SerializeField] public bool acidUsed;
     [SerializeField] bool bottleObtained;
     [SerializeField] public PuzzleInteractable wineFridge;
+    [SerializeField] public TextInteractable mother;
     [SerializeField] PuzzleInteractable trapDoor;
     [SerializeField] PuzzleInteractable updatedTrapDoor;
     [SerializeField] InteractableItem key;
@@ -21,6 +23,7 @@ public class WinePuzzle : MonoBehaviour
     [SerializeField] GameObject trapDoorPerspective;
     [SerializeField] GameObject wineFridgeDoor;
     [SerializeField] GameObject useAcid;
+    [SerializeField] GameObject useBottle;
     bool clickingUp, clickingDown;
     bool increaseTemp;
 
@@ -41,6 +44,7 @@ public class WinePuzzle : MonoBehaviour
     private void Start()
     {
         useAcid.GetComponent<UseAcid>().usedAcid = false;
+        useBottle.GetComponent<UseBottle>().usedBottle = false;
     }
 
     void Update()
@@ -124,6 +128,14 @@ public class WinePuzzle : MonoBehaviour
         {
             currentTemp = correctTemp;
             wineFridge.interactText = updatedWineFridgeOpenCheck;
+        }
+
+        if (PlayerInteraction.Instance.nearestInteractable == mother)
+        {
+            if (useBottle)
+            {
+                SceneManager.LoadScene(2);
+            }
         }
     }
    

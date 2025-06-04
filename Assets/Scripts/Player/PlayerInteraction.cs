@@ -12,8 +12,7 @@ public class PlayerInteraction : MonoBehaviour
     public bool currentlyInteracting;
     public InteractableItem currentItem;
     public bool doneInteracting;
-    bool isUsingInteract;
-    [SerializeField] bool canInteractAgain = true;
+    public bool canInteractAgain = true;
     public InteractableScript nearestInteractable;
     
     public event Action InteractionButtonPressed;
@@ -56,6 +55,9 @@ public class PlayerInteraction : MonoBehaviour
         // Removes all interaction data after an interaction is finished.
         StartCoroutine(InteractDelay());
         currentlyInteracting = false;
+        if (itemBeingInteracted == null)
+            return;
+
         InteractableScript interactable = itemBeingInteracted.GetComponent<InteractableScript>();
         if (interactable.canDespawn)
             itemBeingInteracted.SetActive(false);
@@ -121,8 +123,14 @@ public class PlayerInteraction : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (PlayerManager.Instance.firstPerson != null || !canInteractAgain)
+        if (!canInteractAgain)
             return;
+
+        if (PlayerManager.Instance.firstPerson != null)
+        {
+            InteractableNoLongerInRange?.Invoke(other.gameObject);
+            return;
+        }
 
         if (other.gameObject.GetComponent<InteractableScript>())
         {

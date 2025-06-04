@@ -119,12 +119,13 @@ public class PlayerCombat : MonoBehaviour
         }
         if (ctx.canceled)
         {
-            if (!PlayerMovement.PlayerMove.isMoving)
+            if (PlayerMovement.PlayerMove.isMoving)
                 PlayerManager.Instance.playerState = PlayerManager.PlayerStates.Walking;
             else
                 PlayerManager.Instance.playerState = PlayerManager.PlayerStates.Idle;
             focusTime = 3f;
             currentlyAiming = false;
+            aimingAtEnemy = false;
         }
     }
 

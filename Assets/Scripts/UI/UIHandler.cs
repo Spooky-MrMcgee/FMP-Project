@@ -90,6 +90,9 @@ public class UIHandler : MonoBehaviour
 
     void DisplayItemUI(GameObject itemObject)
     {
+        if (PlayerManager.Instance.firstPerson)
+            return;
+
         RectTransform canvasRect = UICanvas.GetComponent<RectTransform>();
         currentItem = itemObject;
         if (itemObject.GetComponent<InteractableScript>() == null)
@@ -122,8 +125,9 @@ public class UIHandler : MonoBehaviour
 
     }
 
-    void DisplayText(List<string> text)
+    public void DisplayText(List<string> text)
     {
+
         // Takes a queue of strings based on the variable text and filters through them as the player proceeds through text dialogue.
         if (!textDisplayed)
         {
@@ -208,6 +212,9 @@ public class UIHandler : MonoBehaviour
 
     void DisplayReticle()
     {
+        if (PlayerManager.Instance.firstPerson)
+            return;
+
         // Displays the target reticle when the player is aiming.
         Cursor.visible = false;
         rectangleReticle.enabled = true;
@@ -230,6 +237,9 @@ public class UIHandler : MonoBehaviour
 
     void DisplayTargetReticle(GameObject reticleTarget)
     {
+        if (PlayerManager.Instance.firstPerson)
+            return;
+
         // Displays the aiming reticle that follows the players mouse.
         RectTransform canvasRect = UICanvas.GetComponent<RectTransform>();
         Vector2 viewportPosition = Camera.main.WorldToViewportPoint(reticleTarget.transform.position);

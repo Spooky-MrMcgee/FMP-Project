@@ -11,5 +11,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TheMotherLevel.unity
     guid: 8e4aa824b74b677469d73937ef280a88
+  - enabled: 1
+    path: Assets/Scenes/MotherCutscene.unity
+    guid: 00d45a1b5f3567d4593e89a3d8c2d18f
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

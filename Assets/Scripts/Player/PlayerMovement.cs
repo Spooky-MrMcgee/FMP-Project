@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float speed = 6f;
     [SerializeField] float sprintSpeed;
     [SerializeField] float walkSpeed;
+    [SerializeField] float aimSpeed;
     [SerializeField] float smoothTurnTime = 0.1f;
     [SerializeField] float gravity = 9.81f;
     public bool isMoving;
@@ -58,7 +59,15 @@ public class PlayerMovement : MonoBehaviour
             float targetAngle = Mathf.Atan2(dir.x, dir.z) * Mathf.Rad2Deg;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, smoothTurnTime);
             if (!PlayerCombat.Instance.currentlyAiming)
+            {
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
+                if (PlayerManager.Instance.playerState == PlayerManager.PlayerStates.Sprinting)
+                    speed = sprintSpeed;
+                else
+                    speed = walkSpeed;
+            }
+            else
+                speed = aimSpeed;
             characterController.Move(dir * (speed) * Time.deltaTime);
 
             characterController.Move(new Vector3(0, -gravity, 0) * Time.deltaTime);
@@ -94,15 +103,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void Sprint(InputAction.CallbackContext ctx)
     {
+        if (PlayerCombat.Instance.currentlyAiming)
+            return;
+
         if (ctx.performed)
         {
-            speed = sprintSpeed;
             if (isMoving)
                 PlayerManager.Instance.playerState = PlayerManager.PlayerStates.Sprinting;
         }
         else
         {
-            speed = walkSpeed;
             if (isMoving)
                 PlayerManager.Instance.playerState = PlayerManager.PlayerStates.Walking;
         }
@@ -115,10 +125,31 @@ public class PlayerMovement : MonoBehaviour
         if (other.transform.tag == "RoomExit" && canTraverseRooms)
         {
             nextToDoor = true;
+            RoomDoor door = other.transform.GetComponent<RoomDoor>();
             if (PlayerManager.Instance.playerInteract)
             {
+                if (door.locked)
+                {
+                    if (!PlayerInteraction.Instance.canInteractAgain)
+                        return;
+
+                    PlayerInteraction.Instance.currentlyInteracting = true;
+                    if (!PlayerManager.Instance.SearchInventory(door.key))
+                    {
+                        List<string> doorLockText = new List<string>();
+                        doorLockText.Add("The door is locked, I can't seem to get it open without a key.");
+                        UIHandler.Instance.DisplayText(doorLockText);
+                        return;
+                    }
+
+                    List<string> doorUnlockText = new List<string>();
+                    doorUnlockText.Add("The door unlocked.");
+                    UIHandler.Instance.DisplayText(doorUnlockText);
+                    door.locked = false;
+                    
+                }
                 characterController.enabled = false;
-                Vector3 newPos = other.transform.GetComponent<RoomDoor>().connectingSpawn.transform.position;
+                Vector3 newPos = door.connectingSpawn.transform.position;
                 transform.position = new Vector3(newPos.x, newPos.y + 6, newPos.z);
                 characterController.enabled = true;
                 AudioManager.Instance.PlaySFX("DoorClose");
@@ -132,14 +163,31 @@ public class PlayerMovement : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
 
-        /*if (other.gameObject.GetComponentInParent<CameraSwitch>())
-            currentCamera = other.gameObject.transform.parent.gameObject;*/
-
         if (other.transform.tag == "RoomExit")
         {
             nextToDoor = true;
             if (PlayerManager.Instance.playerInteract && canTraverseRooms)
             {
+                RoomDoor door = other.transform.GetComponent<RoomDoor>();
+                if (door.locked)
+                {
+                    if (!PlayerInteraction.Instance.canInteractAgain)
+                        return;
+
+                    PlayerInteraction.Instance.currentlyInteracting = true;
+                    if (!PlayerManager.Instance.SearchInventory(door.key))
+                    {
+                        List<string> doorLockText = new List<string>();
+                        doorLockText.Add("The door is locked, I can't seem to get it open without a key.");
+                        UIHandler.Instance.DisplayText(doorLockText);
+                        return;
+                    }
+
+                    List<string> doorUnlockText = new List<string>();
+                    doorUnlockText.Add("The door unlocked.");
+                    UIHandler.Instance.DisplayText(doorUnlockText);
+                    door.locked = false;
+                }
                 characterController.enabled = false;
                 Vector3 newPos = other.transform.GetComponent<RoomDoor>().connectingSpawn.transform.position;
                 transform.position = new Vector3(newPos.x, newPos.y + 6, newPos.z);
@@ -154,9 +202,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        /*if (other.gameObject.GetComponentInParent<CameraSwitch>())
-            other.gameObject.GetComponentInParent<CameraSwitch>().isColliding = false;*/
-
         if (other.transform.tag == "RoomExit")
         {
             nextToDoor = false;

@@ -4,5 +4,7 @@ using UnityEngine;
 
 public class RoomDoor : MonoBehaviour
 {
+    public bool locked;
+    public InteractableItem key;
     public GameObject connectingSpawn;
 }

@@ -36,6 +36,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
     public bool playerPuzzleFinished;
     public bool firstPersonFinished;
     bool hurt;
+    bool outOfClampRange = false;
     public bool inventory;
 
 
@@ -225,6 +226,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
         if (!playerPuzzle)
         {
+            #region Interactable Checks
             if (currentRoom != previousRoom)
             {
                 virtualCamera.transform.position = currentRoom.cameraPoint.transform.position;
@@ -245,6 +247,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
                 virtualCamera.transform.rotation = currentRoom.cameraPoint.transform.rotation;
                 firstPersonFinished = false;
             }
+            #endregion
 
             #region Clamp Handling
             if (currentRoom.lockX)
@@ -260,22 +263,41 @@ public class PlayerManager : MonoBehaviour, IDamageable
             if (currentRoom.clampX.x != 0 && currentRoom.clampX.y != 0)
             {
                 if (playerMesh.transform.position.x >= currentRoom.clampX.x || playerMesh.transform.position.x <= currentRoom.clampX.y)
-                    currentRoom.followPlayer = false;
+                    outOfClampRange = true;
                 else
-                    currentRoom.followPlayer = true;
+                    outOfClampRange = false;
             }
 
             if (currentRoom.clampZ.x != 0 && currentRoom.clampZ.y != 0)
             {
                 if (playerMesh.transform.position.z >= currentRoom.clampZ.x || playerMesh.transform.position.z <= currentRoom.clampZ.y)
-                    currentRoom.followPlayer = false;
+                    outOfClampRange = true;
                 else
-                    currentRoom.followPlayer = true;
+                    outOfClampRange = false;
             }
 
             if (currentRoom.followPlayer)
-                virtualCamera.transform.position = new Vector3(camX, virtualCamera.transform.position.y, camZ);
+            { 
+                if (outOfClampRange)
+                {
+                    if (!currentRoom.lockZ)
+                    {
+                        if (playerMesh.transform.position.z >= currentRoom.clampZ.x)
+                            camZ = currentRoom.clampZ.x;
+                        else if (playerMesh.transform.position.z <= currentRoom.clampZ.y)
+                            camZ = currentRoom.clampZ.y;
+                    }
 
+                    if (!currentRoom.lockX)
+                    {
+                        if (playerMesh.transform.position.x >= currentRoom.clampX.x)
+                            camX = currentRoom.clampX.x;
+                        else if (playerMesh.transform.position.x <= currentRoom.clampX.y)
+                            camX = currentRoom.clampX.y;
+                    }
+                }
+                virtualCamera.transform.position = new Vector3(camX, virtualCamera.transform.position.y, camZ);
+            }
             virtualCamera.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = currentRoom.orthographicSize;
             playerMesh.SetActive(true);
             #endregion
@@ -320,6 +342,15 @@ public class PlayerManager : MonoBehaviour, IDamageable
         interactableItems.Add(invItem);
     }
 
+    public void RemoveInventory(InteractableItem itemType)
+    {
+        // For when a puzzle object or key needs to be found in the players inventory for the sake of progression
+        foreach (InventoryItems inventoryItem in interactableItems)
+        {
+            if (inventoryItem.item == itemType)
+                interactableItems.Remove(inventoryItem);
+        }
+    }
     public bool SearchInventory(InteractableItem itemType)
     {
         // For when a puzzle object or key needs to be found in the players inventory for the sake of progression
