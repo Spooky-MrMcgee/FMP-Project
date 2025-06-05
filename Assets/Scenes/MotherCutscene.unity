@@ -1267,7 +1267,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &282684850
 Transform:
   m_ObjectHideFlags: 0
@@ -1403,6 +1403,7 @@ MonoBehaviour:
   sonTextbox: {fileID: 14444433}
   motherText: {fileID: 884615188}
   sonText: {fileID: 873204508}
+  endObject: {fileID: 282684849}
   talkingSFX: {fileID: 1882363501}
   dialogue:
   - I'm so sorry.
