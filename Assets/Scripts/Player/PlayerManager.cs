@@ -15,7 +15,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
     [Header("Player Stats")]
     public float health;
-    [SerializeField] float maxPlayerHealth;
+    public float maxPlayerHealth;
     public float speed;
 
     [Header("Player Objects")]

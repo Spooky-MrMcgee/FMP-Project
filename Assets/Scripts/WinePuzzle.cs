@@ -132,7 +132,7 @@ public class WinePuzzle : MonoBehaviour
 
         if (PlayerInteraction.Instance.nearestInteractable == mother)
         {
-            if (useBottle)
+            if (useBottle.GetComponent<UseBottle>().usedBottle)
             {
                 SceneManager.LoadScene(2);
             }

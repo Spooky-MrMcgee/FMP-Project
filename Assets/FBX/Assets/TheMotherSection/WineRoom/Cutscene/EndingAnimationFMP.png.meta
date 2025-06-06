@@ -1,0 +1,1196 @@
+fileFormatVersion: 2
+guid: a03e5c0f230b88741b4ca73e0428f2ed
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: EndingAnimationFMP_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3202
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d8e73d5b5004384abad0bb40927df21
+      internalID: 1265731636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_1
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 3202
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5d478f36c933484895a083cd6e66d3e
+      internalID: -1368074017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_2
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 3202
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c8df91df192c3940865fa7b6387a2b6
+      internalID: -1220029567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_3
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 3202
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36f3331ae9f1b6c4f88860fcf67c14bb
+      internalID: -1270774611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2935
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77b3fed086521b046a917f53044c2c65
+      internalID: 2111272173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_5
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 2935
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3faf7d2fa29a10d47b4d87c345c3c9b3
+      internalID: -1897853886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_6
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 2935
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42df433443d947a4a9a6c8762b4c278b
+      internalID: -494052096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_7
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 2935
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c10eb835e5b6c34e93c6aaf4a966409
+      internalID: 521091375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2668
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c450b297b0f670a4da704a3c73eb8a4a
+      internalID: 1005632057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_9
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 2668
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06efcc6b0898432428f473695b44d595
+      internalID: 1214328655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_10
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 2668
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9acc0ac0780a9204c806895e9520a9ae
+      internalID: 911315703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_11
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 2668
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a24e56ad4f9d6b94f8983e478dda8d5f
+      internalID: 79150661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2401
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7266f1a7b5e64754ea4b8ec218b2dab2
+      internalID: 113908023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_13
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 2401
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19e24b90ab2c86146a22097b259054d7
+      internalID: -2120003413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_14
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 2401
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02db4321dee3f474c9afe478d6c323af
+      internalID: 1717900444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_15
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 2401
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eae524e6576bc0544a8e3ade2e10a5e2
+      internalID: -182056091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2134
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78659cbf81ddf494280ccb0752a43dc5
+      internalID: -918973564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_17
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 2134
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 113c335b0b43bcb488c5be41e3393524
+      internalID: -202580301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_18
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 2134
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2a624b457e0a3445919e78b4fcb0317
+      internalID: -780695759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_19
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 2134
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cffa64091fe809446bcd50adfd477b30
+      internalID: 1834990908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1867
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a85c360ac22e3434dbefe173b70ce74b
+      internalID: -89097708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_21
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 1867
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aec3381a18ddd094ab8caaaa9bb1976c
+      internalID: 2036745504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_22
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 1867
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33d08f754ad5bd74f82e9697a4f18cbb
+      internalID: 258586226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_23
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 1867
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8b7c04016278fe478084daadf26de9d
+      internalID: -1400479516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1600
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a954b7aa8a43aa34587927528c5e9584
+      internalID: 519048963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_25
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 1600
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2646671861fa15f4b80a475d158ae0a0
+      internalID: 1462758874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_26
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 1600
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a24e23587574c4f46ba7d5714966e0ab
+      internalID: 902476559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_27
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 1600
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6274679d325f094ea9849e4eaccc421
+      internalID: 159279863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_28
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1333
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a06484f3b6a02a40bc2644b69901075
+      internalID: 2088329028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_29
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 1333
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ce9c52ec37b151459866c60aa3a4a87
+      internalID: 1219998268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_30
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 1333
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edd4b277cab69dd4bbf8643bc6210523
+      internalID: 313566057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_31
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 1333
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee52d3b1d9392b84c8ac30732fe2dc3e
+      internalID: 1460319317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1066
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc1d4c1940ebc6840b11d15456dc4e5a
+      internalID: 945131264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_33
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 1066
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 734574f9061bd3f44ad2a3143df01165
+      internalID: -1465728036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_34
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 1066
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7326631c19cdbb84eaac568e8c0bd055
+      internalID: -1881736636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_35
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 1066
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35bdae181b3b3dc45a276ab0b10ea073
+      internalID: -691218572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_36
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 799
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d5aac64ebf29aa42951ba1c4b64e4c0
+      internalID: 132461669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_37
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 799
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07a2bddf5bfd32544acabdbcdfa690f8
+      internalID: 672805212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_38
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 799
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 004f8f259bc26c24594a2917204f31dc
+      internalID: -1793764430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_39
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 799
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36c99982c738c87428fb21214b4c166b
+      internalID: 1709598125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 532
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8f87d22bac6f0845aa35f113f41e05e
+      internalID: 1460457152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_41
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 532
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 717de9220bbf4544f87df9d5e816a293
+      internalID: -1735359330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_42
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 532
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e085c623a934094bbdafd7303ec4fcf
+      internalID: -431631015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_43
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 532
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22e58a0d01977944eb3bc8b2d03aa18f
+      internalID: 36898657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_44
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 265
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51c6c89119510db458606b19f1a76b91
+      internalID: 1991925598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_45
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 265
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6727261d13db969459435a40b324601e
+      internalID: -1386496859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_46
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 265
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88fdc5caad480b34380c410f52e41cf6
+      internalID: -1996475952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EndingAnimationFMP_47
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 265
+        width: 420
+        height: 267
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9bc40468aa040c44a68f45d8133b9a4
+      internalID: -241616760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 6fdf11d21d8965d4287ee0756df3fab9
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      EndingAnimationFMP_0: 1265731636
+      EndingAnimationFMP_1: -1368074017
+      EndingAnimationFMP_10: 911315703
+      EndingAnimationFMP_11: 79150661
+      EndingAnimationFMP_12: 113908023
+      EndingAnimationFMP_13: -2120003413
+      EndingAnimationFMP_14: 1717900444
+      EndingAnimationFMP_15: -182056091
+      EndingAnimationFMP_16: -918973564
+      EndingAnimationFMP_17: -202580301
+      EndingAnimationFMP_18: -780695759
+      EndingAnimationFMP_19: 1834990908
+      EndingAnimationFMP_2: -1220029567
+      EndingAnimationFMP_20: -89097708
+      EndingAnimationFMP_21: 2036745504
+      EndingAnimationFMP_22: 258586226
+      EndingAnimationFMP_23: -1400479516
+      EndingAnimationFMP_24: 519048963
+      EndingAnimationFMP_25: 1462758874
+      EndingAnimationFMP_26: 902476559
+      EndingAnimationFMP_27: 159279863
+      EndingAnimationFMP_28: 2088329028
+      EndingAnimationFMP_29: 1219998268
+      EndingAnimationFMP_3: -1270774611
+      EndingAnimationFMP_30: 313566057
+      EndingAnimationFMP_31: 1460319317
+      EndingAnimationFMP_32: 945131264
+      EndingAnimationFMP_33: -1465728036
+      EndingAnimationFMP_34: -1881736636
+      EndingAnimationFMP_35: -691218572
+      EndingAnimationFMP_36: 132461669
+      EndingAnimationFMP_37: 672805212
+      EndingAnimationFMP_38: -1793764430
+      EndingAnimationFMP_39: 1709598125
+      EndingAnimationFMP_4: 2111272173
+      EndingAnimationFMP_40: 1460457152
+      EndingAnimationFMP_41: -1735359330
+      EndingAnimationFMP_42: -431631015
+      EndingAnimationFMP_43: 36898657
+      EndingAnimationFMP_44: 1991925598
+      EndingAnimationFMP_45: -1386496859
+      EndingAnimationFMP_46: -1996475952
+      EndingAnimationFMP_47: -241616760
+      EndingAnimationFMP_5: -1897853886
+      EndingAnimationFMP_6: -494052096
+      EndingAnimationFMP_7: 521091375
+      EndingAnimationFMP_8: 1005632057
+      EndingAnimationFMP_9: 1214328655
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

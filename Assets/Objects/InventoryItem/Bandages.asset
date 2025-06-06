@@ -16,4 +16,4 @@ MonoBehaviour:
   itemDesc: Some bandages used for healing
   quantity: 1
   interactable: {fileID: 3209410859915582933, guid: aa500e2347224b2499cdd5e915268b44, type: 3}
-  itemDetails: {fileID: 0}
+  itemDetails: {fileID: 6624108778160773463, guid: b5e42c8646aee164e97d637b9e50025c, type: 3}

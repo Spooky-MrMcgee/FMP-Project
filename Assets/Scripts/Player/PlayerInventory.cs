@@ -30,7 +30,7 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] InteractableItem selectedItem;
 
     [Header("Inventory Checks")]
-    bool inventoryDisplayed = false;
+    public bool inventoryDisplayed = false;
     bool topSelected;
     bool middleSelected;
     bool bottomSelected;

@@ -12,6 +12,7 @@ public class UIHandler : MonoBehaviour
     public static UIHandler Instance;
     [Header("UI Objects")]
     [SerializeField] Sprite[] spriteSheet;
+    [SerializeField] Slider healthSlider;
     [SerializeField] Image rectangleReticle;
     [SerializeField] Image targetReticle;
     [SerializeField] TextMeshProUGUI UIText;
@@ -59,6 +60,9 @@ public class UIHandler : MonoBehaviour
     private void Update()
     {
         // Handles all the necessary UI that updates in real time, such as player aiming and text updates.
+
+        healthSlider.value = PlayerManager.Instance.health;
+        
         if (PlayerCombat.Instance.currentlyAiming)
         {
             DisplayReticle();

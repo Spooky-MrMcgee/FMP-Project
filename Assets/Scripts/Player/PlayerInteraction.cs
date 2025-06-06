@@ -89,7 +89,7 @@ public class PlayerInteraction : MonoBehaviour
     #region Trigger Interaction Handling
     void OnTriggerEnter(Collider other)
     {
-        if (PlayerManager.Instance.firstPerson != null || !canInteractAgain)
+        if (PlayerManager.Instance.firstPerson != null || !canInteractAgain || PlayerInventory.Instance.inventoryDisplayed)
             return;
 
         if (other.gameObject.GetComponent<InteractableScript>())
@@ -123,7 +123,7 @@ public class PlayerInteraction : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (!canInteractAgain)
+        if (PlayerManager.Instance.firstPerson != null || !canInteractAgain || PlayerInventory.Instance.inventoryDisplayed)
             return;
 
         if (PlayerManager.Instance.firstPerson != null)

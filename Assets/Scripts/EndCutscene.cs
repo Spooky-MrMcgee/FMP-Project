@@ -77,6 +77,8 @@ public class EndCutscene : MonoBehaviour
     void FinishEnd()
     {
         endObject.SetActive(true);
+        motherTextbox.SetActive(false);
+        sonTextbox.SetActive(false);
     }
 
     IEnumerator TextDelay()
