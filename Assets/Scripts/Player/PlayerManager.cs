@@ -77,6 +77,11 @@ public class PlayerManager : MonoBehaviour, IDamageable
     {
         Instance = this;
         currentCamera = Camera.main;
+
+        PlayerActions = new PlayerInputs();
+        PlayerActions.Player.PlayerInteract.performed += ctx => InteractCheck(ctx);
+        PlayerActions.Player.PlayerInteract.canceled += ctx => InteractCheck(ctx);
+        PlayerActions.Enable();
     }
 
     private void Start()
@@ -91,15 +96,6 @@ public class PlayerManager : MonoBehaviour, IDamageable
             items.quantity = item.quantity;
             interactableItems.Add(items);
         }
-    }
-
-    private void OnEnable()
-    {
-        // Hooking up Player Inputs
-        PlayerActions = new PlayerInputs();
-        PlayerActions.Player.PlayerInteract.performed += ctx => InteractCheck(ctx);
-        PlayerActions.Player.PlayerInteract.canceled += ctx => InteractCheck(ctx);
-        PlayerActions.Enable();
     }
 
     private void OnDisable()
@@ -348,7 +344,11 @@ public class PlayerManager : MonoBehaviour, IDamageable
         foreach (InventoryItems inventoryItem in interactableItems)
         {
             if (inventoryItem.item == itemType)
+            {
                 interactableItems.Remove(inventoryItem);
+                PlayerInventory.Instance.SortInventory();
+            }
+
         }
     }
     public bool SearchInventory(InteractableItem itemType)

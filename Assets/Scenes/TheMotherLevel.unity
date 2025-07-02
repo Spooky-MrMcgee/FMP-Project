@@ -18664,13 +18664,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2523211075801962087, guid: e8285717754094543a71c8e4018235ac, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2664348920531170580, guid: e8285717754094543a71c8e4018235ac, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 263265903}
+    - target: {fileID: 2664348920531170580, guid: e8285717754094543a71c8e4018235ac, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ShiftRightButton
+      objectReference: {fileID: 0}
     - target: {fileID: 3424446363796195354, guid: e8285717754094543a71c8e4018235ac, type: 3}
       propertyPath: m_Name
       value: InventoryCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 4789963465617700770, guid: e8285717754094543a71c8e4018235ac, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4999977258414646689, guid: e8285717754094543a71c8e4018235ac, type: 3}
       propertyPath: m_IsActive
@@ -18680,6 +18692,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 263265903}
+    - target: {fileID: 6063178779832370478, guid: e8285717754094543a71c8e4018235ac, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ShiftLeftButton
+      objectReference: {fileID: 0}
     - target: {fileID: 8815732850369766972, guid: e8285717754094543a71c8e4018235ac, type: 3}
       propertyPath: m_Camera
       value: 
@@ -25577,13 +25593,15 @@ MonoBehaviour:
   trapDoor: {fileID: 414808821}
   updatedTrapDoor: {fileID: 517924725}
   key: {fileID: 11400000, guid: e80988b889b8f7b439b2da4c5e3a0213, type: 2}
-  medkit: {fileID: 0}
+  medkit: {fileID: 11400000, guid: d29264e41b5899a4a813f817b5341ca9, type: 2}
+  acid: {fileID: 11400000, guid: f3b12a4edadbb504dbd4606eb6d36233, type: 2}
   bottle: {fileID: 11400000, guid: b32de309a51913d4480aa8ec0a76058c, type: 2}
   wallHole: {fileID: 507491028}
   trapDoorPerspective: {fileID: 0}
   wineFridgeDoor: {fileID: 1153843099}
   useAcid: {fileID: 400387784049473288, guid: 67b372bc4c22f9a4b851be747548504e, type: 3}
   useBottle: {fileID: 8333497049961047015, guid: d87dce83c12ce5d4b9973a9b17d07f1f, type: 3}
+  wineBottle: {fileID: 1526597163}
   updatedWineFridgeCheck:
   - I still need to find the right temperature for this.
   - Mom kept her 'wine secrets' behind the cabinet, maybe I'll find something there?
@@ -71008,7 +71026,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 390271409790408012, guid: 1d6e92d4090b28e4da45a370000adbca, type: 3}
       propertyPath: startingItems.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 390271409790408012, guid: 1d6e92d4090b28e4da45a370000adbca, type: 3}
       propertyPath: 'startingItems.Array.data[0]'

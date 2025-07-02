@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UseMedkit : InventoryUse
 {
-    [SerializeField] InteractableItem bandages, hydroflouricAcid;
+    [SerializeField] InteractableItem bandages, hydroflouricAcid, medkit;
     public override void Use()
     {
         PlayerManager.InventoryItems inventoryItemsBandage = new PlayerManager.InventoryItems();
@@ -15,6 +15,7 @@ public class UseMedkit : InventoryUse
         inventoryItemsBandage.quantity = bandages.quantity;
         PlayerManager.Instance.interactableItems.Add(inventoryItemsBandage);
         PlayerManager.Instance.interactableItems.Add(inventoryItemsAcid);
+        PlayerManager.Instance.RemoveInventory(medkit);
     }
 
     public override void Combine()

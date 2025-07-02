@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bandages: {fileID: 11400000, guid: 3ecf8c2e512bea044a0a8f6f18501a43, type: 2}
   hydroflouricAcid: {fileID: 11400000, guid: f3b12a4edadbb504dbd4606eb6d36233, type: 2}
+  medkit: {fileID: 11400000, guid: d29264e41b5899a4a813f817b5341ca9, type: 2}

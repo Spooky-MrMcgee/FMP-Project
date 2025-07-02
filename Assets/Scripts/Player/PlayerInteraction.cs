@@ -53,17 +53,17 @@ public class PlayerInteraction : MonoBehaviour
     void DoneInteracting()
     {
         // Removes all interaction data after an interaction is finished.
-        StartCoroutine(InteractDelay());
-        currentlyInteracting = false;
         if (itemBeingInteracted == null)
             return;
 
+        float interactDelay = 0.5f;
+
         InteractableScript interactable = itemBeingInteracted.GetComponent<InteractableScript>();
+
         if (interactable.canDespawn)
             itemBeingInteracted.SetActive(false);
         if (interactable.collectable)
             InteractablePickedUp(itemBeingInteracted.GetComponent<InteractableScript>().interactable);
-
         interactable.interacted = false;
 
         if (interactable is PuzzleInteractable)
@@ -71,17 +71,21 @@ public class PlayerInteraction : MonoBehaviour
             PuzzleInteractable puzzleInteractable = itemBeingInteracted.GetComponent<PuzzleInteractable>();
             PlayerManager.Instance.playerPuzzle = false;
             PlayerManager.Instance.playerPuzzleFinished = true;
-            if (puzzleInteractable.fpTransition == null)
-                return;
-            // If the puzzle then moves to a FirstPerson transition it then handles that here.
-            puzzleInteractable.fpTransition.Interact();
+            if (puzzleInteractable.fpTransition != null)
+            {
+                interactDelay = 2f;
+                // If the puzzle then moves to a FirstPerson transition it then handles that here.
+                puzzleInteractable.fpTransition.Interact();
+            }
         }
+        StartCoroutine(InteractDelay(interactDelay));
+        currentlyInteracting = false;
     }
 
-    IEnumerator InteractDelay()
+    IEnumerator InteractDelay(float interactDelay)
     {
         canInteractAgain = false;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(interactDelay);
         canInteractAgain = true;
     }
 
@@ -94,6 +98,9 @@ public class PlayerInteraction : MonoBehaviour
 
         if (other.gameObject.GetComponent<InteractableScript>())
         {
+            if (!other.gameObject.GetComponent<InteractableScript>().enabled)
+                return;
+                
             if (!currentlyInteracting)
             {
                 if (other.gameObject.transform.Find("PopUpPlacement") != null)
@@ -134,6 +141,9 @@ public class PlayerInteraction : MonoBehaviour
 
         if (other.gameObject.GetComponent<InteractableScript>())
         {
+            if (!other.gameObject.GetComponent<InteractableScript>().enabled)
+                return;
+                
             if (!currentlyInteracting)
             {
                 if (other.gameObject.transform.Find("PopUpPlacement") != null)

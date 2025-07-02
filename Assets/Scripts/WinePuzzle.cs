@@ -18,12 +18,14 @@ public class WinePuzzle : MonoBehaviour
     [SerializeField] PuzzleInteractable updatedTrapDoor;
     [SerializeField] InteractableItem key;
     [SerializeField] InteractableItem medkit;
+    [SerializeField] InteractableItem acid;
     [SerializeField] InteractableItem bottle;
     [SerializeField] GameObject wallHole;
     [SerializeField] GameObject trapDoorPerspective;
     [SerializeField] GameObject wineFridgeDoor;
     [SerializeField] GameObject useAcid;
     [SerializeField] GameObject useBottle;
+    [SerializeField] GameObject wineBottle;
     bool clickingUp, clickingDown;
     bool increaseTemp;
 
@@ -55,7 +57,7 @@ public class WinePuzzle : MonoBehaviour
         if (wineFridge.interacted || PlayerManager.Instance.firstPerson != null)
         {
             temperatureCanvas.enabled = true;
-            temperature.text = currentTemp.ToString() + "°C";
+            temperature.text = currentTemp.ToString() + "Â°C";
         }
         else
             temperatureCanvas.enabled = false;
@@ -92,37 +94,45 @@ public class WinePuzzle : MonoBehaviour
             if (PlayerInteraction.Instance.nearestInteractable == wineFridge && doorIsOpen)
             {
                 acidUsed = true;
-                PlayerInventory.Instance.DisplayInventory();
+                PlayerManager.Instance.RemoveInventory(acid);
             }
         }
 
         if (acidUsed && !bottleObtained)
         {
+            PlayerInventory.Instance.DisplayInventory();
             bottleObtained = true;
             wineFridge.interactText = updatedWineFridgeAcid;
             wineFridge.interactable = bottle;
             wineFridge.collectable = true;
             wineFridge.Interact();
         }
+
+        if (acidUsed && bottleObtained && PlayerInteraction.Instance.currentlyInteracting != wineFridge.gameObject)
+        {
+            gameObject.GetComponent<PuzzleInteractable>().enabled = false;
+            wineBottle.SetActive(false);
+        }
+
         if (clickingUp && increaseTemp)
-            StartCoroutine(ShiftTemp(1));
-        else if (clickingDown && increaseTemp)
-            StartCoroutine(ShiftTemp(-1));
+                StartCoroutine(ShiftTemp(1));
+            else if (clickingDown && increaseTemp)
+                StartCoroutine(ShiftTemp(-1));
 
         if (!clickingUp && !clickingDown)
             StopCoroutine("ShiftTemp");
 
-        if (currentTemp == correctTemp && doorIsOpen == false)
-        {
-            StopCoroutine("ShiftTemp");
-            wineFridgeDoor.transform.localRotation = new Quaternion(wineFridgeDoor.transform.localRotation.x, wineFridgeDoor.transform.localRotation.y, 90, wineFridgeDoor.transform.localRotation.w);
-            doorIsOpen = true;
-            PlayerInteraction.Instance.itemBeingInteracted = wineFridge.gameObject;
-            wineFridge.fpTransition = null;
-            PlayerManager.Instance.firstPerson = null;
-            wineFridge.interactText = updatedWineFridgeOpen;
-            wineFridge.Interact();
-        }
+        if (currentTemp == correctTemp && doorIsOpen == false && keyFound && PlayerInteraction.Instance.nearestInteractable == wineFridge)
+            {
+                StopCoroutine("ShiftTemp");
+                wineFridgeDoor.transform.localRotation = new Quaternion(wineFridgeDoor.transform.localRotation.x, wineFridgeDoor.transform.localRotation.y, 90, wineFridgeDoor.transform.localRotation.w);
+                doorIsOpen = true;
+                PlayerInteraction.Instance.itemBeingInteracted = wineFridge.gameObject;
+                wineFridge.fpTransition = null;
+                wineFridge.interactText = updatedWineFridgeOpen;
+                PlayerManager.Instance.firstPerson = null;
+                wineFridge.Interact();
+            }
 
         if (doorIsOpen)
         {

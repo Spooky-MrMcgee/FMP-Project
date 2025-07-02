@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    private void OnEnable()
+    private void Start()
     {
         PlayerActions = PlayerManager.Instance.PlayerActions;
         PlayerActions.Player.PlayerMove.performed += ctx => Move(ctx.ReadValue<Vector2>());

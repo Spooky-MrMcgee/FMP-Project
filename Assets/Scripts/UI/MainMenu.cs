@@ -11,10 +11,16 @@ public class MainMenu : MonoBehaviour
 {
     Camera cam;
     [Header("Main Menu Objects")]
-    [SerializeField] TextMeshProUGUI menuName, enterButton, dialogueText, endingText;
+    [SerializeField] TextMeshProUGUI menuName;
+    [SerializeField] TextMeshProUGUI enterButton;
+    [SerializeField] TextMeshProUGUI dialogueText;
+    [SerializeField] TextMeshProUGUI endingText;
+    [SerializeField] TextMeshProUGUI howToPlay;
+    [SerializeField] TextMeshProUGUI betaWarning;
     [SerializeField] UnityEngine.UI.Image panel;
     [SerializeField] AudioSource talkingSFX;
     [SerializeField] GameObject speechBubble;
+    [SerializeField] GameObject helpPanel;
     [SerializeField] List<string> dialogue = new List<string>();
     int lineCount = 0;
     bool continueText, dialogueStarted, dialogueFinished;
@@ -33,19 +39,34 @@ public class MainMenu : MonoBehaviour
     {
         // Starts the game once cutscene is finished.
         if (dialogueFinished)
-        {
             FinishIntro();
-        }
+
+        if (Input.GetKeyDown(KeyCode.Return) && helpPanel.activeSelf == false)
+            StartGame();
+
+        if (Input.GetKeyDown(KeyCode.Escape) && helpPanel.activeSelf == true)
+            helpPanel.SetActive(false);
     }
 
     public void StartGame()
     {
+        if (helpPanel.activeSelf || dialogueStarted)
+            return;
+            
         // Starts the cutscene upon hitting 'PLAY'.
         menuName.enabled = false;
+        howToPlay.enabled = false;
+        betaWarning.enabled = false;
         enterButton.gameObject.SetActive(false);
         cam = Camera.main;
         cam.GetComponent<Animation>().Play();
     }
+
+    public void DisplayHelp()
+    {
+        helpPanel.SetActive(true);
+    }
+
 
     #region Dialogue Handlers
     public void StartDialogue()

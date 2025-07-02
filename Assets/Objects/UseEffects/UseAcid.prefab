@@ -45,3 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winePuzzle: {fileID: 0}
+  usedAcid: 0

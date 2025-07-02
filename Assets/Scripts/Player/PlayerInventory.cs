@@ -32,6 +32,7 @@ public class PlayerInventory : MonoBehaviour
     [Header("Inventory Checks")]
     public bool inventoryDisplayed = false;
     bool topSelected;
+    bool shiftingItem = false;
     bool middleSelected;
     bool bottomSelected;
     float mouseX, mouseY, sens = 3f;
@@ -55,13 +56,11 @@ public class PlayerInventory : MonoBehaviour
         inventoryInputs.UI.ShiftLeft.performed += ctx => StartCoroutine(ShiftLeft());
         inventoryInputs.UI.ShiftRight.performed += ctx => StartCoroutine(ShiftRight());
         inventoryInputs.UI.Exit.performed += ctx => DisplayInventory();
-        inventoryInputs.UI.Scroll.performed += ctx => ShiftInventory(ctx.ReadValue<Vector2>());
     }
 
     private void OnDisable()
     {
         PlayerManager.Instance.PlayerPressedInventoryButton -= DisplayInventory;
-        inventoryInputs.UI.Scroll.performed -= ctx => ShiftInventory(ctx.ReadValue<Vector2>());
     }
     #endregion
 
@@ -168,13 +167,6 @@ public class PlayerInventory : MonoBehaviour
                 if (inventory.item == selectedItem)
                 {
                     selectedItem.itemDetails.GetComponent<IUsable>().Use();
-                    inventory.quantity -= 1;
-                    if (inventory.quantity <= 0)
-                    {
-                        PlayerManager.Instance.interactableItems.Remove(inventory);
-                        Destroy(displayedItem);
-                    }
-                    SortInventory();
                     break;
                 }
             }  
@@ -184,17 +176,21 @@ public class PlayerInventory : MonoBehaviour
 
     // Inventory Scrolling handles all the button inputs from the player, displaying the respective items and their positions based on the players input.
     #region Inventory Scrolling
-    private void ShiftInventory(Vector2 scrollMovement)
+
+    public void ShiftLeftButton()
     {
-
+        if (shiftingItem)
+            return;
+        StartCoroutine(ShiftLeft());
     }
-
+    
     public IEnumerator ShiftLeft()
     {
         if (currentItemIndex == 0)
             yield return null;
 
-        leftItem = Instantiate(PlayerManager.Instance.interactableItems[currentItemIndex-1].item.interactable, leftItemContainer.transform);
+        shiftingItem = true;
+        leftItem = Instantiate(PlayerManager.Instance.interactableItems[currentItemIndex - 1].item.interactable, leftItemContainer.transform);
         inventorySwitch.SwitchItemsLeft();
         inventoryInputs.UI.Disable();
         yield return new WaitForSeconds(0.3f);
@@ -204,16 +200,23 @@ public class PlayerInventory : MonoBehaviour
         currentItem.layer = 5;
         displayedItem = leftItem;
         leftItem = null;
+        shiftingItem = false;
         SortInventory();
     }
 
+    public void ShiftRightButton()
+    {
+        if (shiftingItem)
+            return;
+        StartCoroutine(ShiftRight());
+    }
     public IEnumerator ShiftRight()
     {
-
         if (currentItemIndex >= PlayerManager.Instance.interactableItems.Count - 1)
             yield return null;
-        
-        rightItem = Instantiate(PlayerManager.Instance.interactableItems[currentItemIndex+1].item.interactable, rightItemContainer.transform);
+
+        shiftingItem = true;
+        rightItem = Instantiate(PlayerManager.Instance.interactableItems[currentItemIndex + 1].item.interactable, rightItemContainer.transform);
         inventorySwitch.SwitchItemsRight();
         inventoryInputs.UI.Disable();
         yield return new WaitForSeconds(0.3f);
@@ -222,15 +225,16 @@ public class PlayerInventory : MonoBehaviour
         displayedItem = rightItem;
         rightItem = null;
         SortInventory();
+        shiftingItem = false;
     }
     #endregion
     
     // SortInventory is called after a major change, re-establishing the order of items and what should be displayed on the screen.
-    void SortInventory()
+    public void SortInventory()
     {
+        Destroy(displayedItem);
         selectedItem = PlayerManager.Instance.interactableItems[currentItemIndex].item;
         currentItem = selectedItem.interactable;
-        Destroy(displayedItem);
         displayedItem = Instantiate(currentItem, currentItemContainer.transform);
         displayedItem.layer = 5;
         itemName.text = PlayerManager.Instance.interactableItems[currentItemIndex].item.itemName;

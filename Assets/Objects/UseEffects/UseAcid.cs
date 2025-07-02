@@ -8,7 +8,9 @@ public class UseAcid : InventoryUse
     public bool usedAcid;
     public override void Use()
     {
-        usedAcid = true;
+        winePuzzle = GameObject.Find("WineFridge.001").GetComponent<WinePuzzle>();
+        if (PlayerInteraction.Instance.nearestInteractable == winePuzzle.wineFridge)
+            usedAcid = true;
         StartCoroutine(useCooldown());
     }
 
